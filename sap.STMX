@@ -1,0 +1,2984 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xmile version="1.0" level="3" xmlns="http://www.systemdynamics.org/XMILE" xmlns:isee="http://iseesystems.com/XMILE">
+    <header>
+        <smile version="1.0" namespace="std, isee" />
+        <name>sap</name>
+        <uuid>64d94d08-dd68-4323-a643-edab6c221272</uuid>
+        <vendor>isee systems, inc.</vendor>
+        <product version="10.0.4" lang="en">STELLA</product>
+    </header>
+    <style>
+        <model font-family="Geneva" font-size="9" />
+        <interface font-family="Helvetica" font-size="9" />
+    </style>
+    <sim_specs method="Euler" time_units="Hours">
+        <start>0</start>
+        <stop>360</stop>
+        <dt reciprocal="true">0.015625</dt>
+    </sim_specs>
+    <model_units>
+        <units>
+            <eqn>1/hour</eqn>
+        </units>
+        <units>
+            <eqn>1/hour-hr</eqn>
+        </units>
+        <units>
+            <eqn>1/hr-min</eqn>
+        </units>
+        <units>
+            <eqn>burst</eqn>
+        </units>
+        <units>
+            <eqn>burst/hr</eqn>
+        </units>
+        <units>
+            <eqn>centimeter-centimeter</eqn>
+        </units>
+        <units>
+            <eqn>centimeter/min</eqn>
+        </units>
+        <units>
+            <eqn>centimeter^3/liter</eqn>
+        </units>
+        <units>
+            <eqn>cm/hr</eqn>
+        </units>
+        <units>
+            <eqn>cm/min</eqn>
+        </units>
+        <units>
+            <eqn>Kda</eqn>
+        </units>
+        <units>
+            <eqn>kda/hr</eqn>
+        </units>
+        <units>
+            <eqn>l/hour</eqn>
+        </units>
+        <units>
+            <eqn>l/min</eqn>
+        </units>
+        <units>
+            <eqn>mg-ml/pg-l</eqn>
+        </units>
+        <units>
+            <eqn>mg/hr-l</eqn>
+        </units>
+        <units>
+            <eqn>mg/l</eqn>
+        </units>
+        <units>
+            <eqn>micromolar</eqn>
+        </units>
+        <units>
+            <eqn>milligrams/hr-l</eqn>
+        </units>
+        <units>
+            <eqn>milligrams/l</eqn>
+        </units>
+        <units>
+            <eqn>ml/hour</eqn>
+        </units>
+        <units>
+            <eqn>ml/hour-hr</eqn>
+        </units>
+        <units>
+            <eqn>ml/hr</eqn>
+        </units>
+        <units>
+            <eqn>ml/l</eqn>
+        </units>
+        <units>
+            <eqn>mmHg</eqn>
+        </units>
+        <units>
+            <eqn>mmHg-min/l</eqn>
+        </units>
+        <units>
+            <eqn>mmhg/hr</eqn>
+        </units>
+        <units>
+            <eqn>pg/hour-hr-ml</eqn>
+        </units>
+        <units>
+            <eqn>pg/hr-ml</eqn>
+        </units>
+        <units>
+            <eqn>pg/ml</eqn>
+        </units>
+        <units>
+            <eqn>pg/ml-burst</eqn>
+        </units>
+        <units>
+            <eqn>pg/ml-hour</eqn>
+        </units>
+        <units>
+            <eqn>picomolar</eqn>
+        </units>
+        <units>
+            <eqn>picomolar/hr</eqn>
+        </units>
+        <units>
+            <eqn>picomolar/hr^2</eqn>
+        </units>
+    </model_units>
+    <isee:prefs layer="model" grid_width="20" grid_height="50" divide_by_zero_alert="true" hide_taskbar="true" show_module_prefix="true">
+        <isee:window width="1425" height="793" />
+        <isee:security />
+        <isee:print_setup width="576" height="734" />
+    </isee:prefs>
+    <isee:equation_prefs order_by="module" />
+    <model>
+        <stock name="Operation_point_of_Baroreceptor">
+            <eqn>84</eqn>
+            <inflow>Net_change_in_operation_point</inflow>
+            <non_negative />
+            <units>mmHg</units>
+            <display x="1075" y="1287" color="blue" />
+        </stock>
+        <flow name="Net_change_in_operation_point">
+            <eqn>Discrepancy_between_operation_point_and_BP/Adjustment_time</eqn>
+            <units>mmhg/hr</units>
+            <display x="998" y="1282" color="blue" label_angle="232">
+                <pts>
+                    <pt x="944" y="1282" />
+                    <pt x="1053" y="1282" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="reference_for_Sna">
+            <eqn>40</eqn>
+            <units>burst</units>
+            <display x="1086" y="1525" color="blue" />
+        </aux>
+        <aux name="Implied_SNA">
+            <eqn>reference_for_Sna*Effect_of_Bp_on_SNA*Effect_of_Ros_on_sympathetic_impulse&#x0A;&#x0A;</eqn>
+            <units>burst</units>
+            <display x="1240" y="1480" color="blue">
+                <scale min="0" max="100" />
+            </display>
+        </aux>
+        <aux name="Effect_of_Bp_on_SNA">
+            <eqn>Ratio_of_BPI_to_BOP</eqn>
+            <gf>
+                <xscale min="0.1" max="1.9" />
+                <yscale min="0.5" max="1.5" />
+                <ypts>1.5,1.5,1.49,1.47,1.4399999999999999,1.3999999999999999,1.3500000000000001,1.29,1.22,1.1399999999999999,1,0.85999999999999999,0.78000000000000003,0.70999999999999996,0.65000000000000002,0.59999999999999998,0.56000000000000005,0.53000000000000003,0.51000000000000001,0.5,0.5</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1159" y="1419" color="blue" />
+        </aux>
+        <stock name="NorAdr_In_plasma">
+            <eqn>400</eqn>
+            <inflow>Spillover_Rate</inflow>
+            <outflow>Transformation_Rate</outflow>
+            <outflow>Clearance_rate</outflow>
+            <non_negative />
+            <units>pg/ml</units>
+            <display x="1536" y="1390" color="blue" label_side="bottom" label_angle="255">
+                <scale min="200" max="1000" />
+            </display>
+        </stock>
+        <flow name="Spillover_Rate">
+            <eqn>IF(Time&lt;1)&#x0A;Then&#x0A;((desired_epinephrine*2-Epinephrine_in_Plasma)/ATN)+Expected_Loss_in_E+Expected_Loss_in_Ne&#x0A;ELSE&#x0A;((desired_epinephrine-Epinephrine_in_Plasma)/ATN)+Expected_Loss_in_E+Expected_Loss_in_Ne</eqn>
+            <units>pg/hr-ml</units>
+            <display x="1535" y="1332" color="blue">
+                <scale min="0" max="50" />
+                <pts>
+                    <pt x="1535" y="1291" />
+                    <pt x="1535" y="1373" />
+                </pts>
+            </display>
+        </flow>
+        <stock name="Epinephrine_in_Plasma">
+            <eqn>40</eqn>
+            <inflow>Transformation_Rate</inflow>
+            <outflow>Clear_Rate_of_Epinephrine_in_Urine</outflow>
+            <non_negative />
+            <units>pg/ml</units>
+            <display x="1542" y="1562" color="blue">
+                <scale min="20" max="80" />
+            </display>
+        </stock>
+        <flow name="Transformation_Rate">
+            <eqn>NorAdr_in_plasma/transformation_rate_NE</eqn>
+            <non_negative />
+            <units>pg/hr-ml</units>
+            <display x="1547" y="1476" color="blue" label_side="top" label_angle="87">
+                <pts>
+                    <pt x="1547" y="1407" />
+                    <pt x="1547" y="1545" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="CRE">
+            <eqn>0.05</eqn>
+            <units>hour</units>
+            <display x="1453" y="1629" color="blue" />
+        </aux>
+        <aux name="transformation_rate_NE">
+            <eqn>reference_transformation_rate*Effect_of_RYR1*Effect_on_transformation_rate_of_Ne_to_E</eqn>
+            <units>hour</units>
+            <display x="1653" y="1488" color="blue" />
+        </aux>
+        <flow name="Clear_Rate_of_Epinephrine_in_Urine">
+            <eqn>Epinephrine_in_Plasma/CRE</eqn>
+            <non_negative />
+            <units>hour</units>
+            <display x="1547" y="1626" color="blue">
+                <pts>
+                    <pt x="1547" y="1579" />
+                    <pt x="1547" y="1673" />
+                </pts>
+            </display>
+        </flow>
+        <stock name="Expected_Loss_in_E">
+            <eqn>800</eqn>
+            <inflow>Net_change_E_loss1</inflow>
+            <non_negative />
+            <units>pg/ml-hour</units>
+            <display x="1669" y="1672" color="blue" />
+        </stock>
+        <aux name="ETEL">
+            <eqn>1</eqn>
+            <units>hour</units>
+            <display x="1616" y="1724" color="blue" />
+        </aux>
+        <aux name="desired_epinephrine">
+            <eqn>Average_SNA*Productivity_of_each_neuron&#x0A;&#x0A;</eqn>
+            <units>pg/ml</units>
+            <display x="1352" y="1280" color="blue">
+                <scale min="0" max="100" />
+            </display>
+        </aux>
+        <aux name="ATN">
+            <eqn>0.01</eqn>
+            <units>hour</units>
+            <display x="1604" y="1301" color="blue" />
+        </aux>
+        <flow name="Clearance_rate">
+            <eqn>NorAdr_In_plasma/CRN</eqn>
+            <non_negative />
+            <units>pg/hr-ml</units>
+            <display x="1628" y="1392" color="blue">
+                <pts>
+                    <pt x="1558" y="1392" />
+                    <pt x="1698" y="1392" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="CRN">
+            <eqn>1/18</eqn>
+            <units>hour</units>
+            <display x="1672" y="1330" color="blue" />
+        </aux>
+        <stock name="Expected_Loss_in_Ne">
+            <eqn>7200</eqn>
+            <inflow>Net_change_Ne_loss</inflow>
+            <non_negative />
+            <units>pg/ml-hour</units>
+            <display x="1727" y="1229" color="blue" />
+        </stock>
+        <aux name="ETNL">
+            <eqn>1</eqn>
+            <units>hour</units>
+            <display x="1619" y="1178" color="blue" />
+        </aux>
+        <aux name="Epinephrine">
+            <eqn>converter_pgml_to_mgl*(Epinephrine_in_Plasma)</eqn>
+            <units>mg/l</units>
+            <display x="1724" y="1848" color="blue" />
+        </aux>
+        <aux name="Norepinephrine">
+            <eqn>converter_pgml_to_mgl*(NorAdr_In_plasma)</eqn>
+            <units>mg/l</units>
+            <display x="1729" y="1924" color="blue" />
+        </aux>
+        <aux name="Common_Factor_For_Beta_1">
+            <eqn>1/(1+(EP_IN_P/Ki_for_beta1_of_epinephrine)+(NE_IN_P/ki_for_beta_1_norepinephrine)+(Free_Aten_Conc/KD_of_atenolol))</eqn>
+            <units>Unitless</units>
+            <display x="1498" y="1982" color="blue" label_angle="249" />
+        </aux>
+        <aux name="Ki_for_beta1_of_epinephrine">
+            <eqn>(3970)*(10^3)/(5.454*10^6)</eqn>
+            <units>mg/l</units>
+            <display x="1593" y="2052" color="blue" />
+        </aux>
+        <aux name="Beta_1_receptor_ratio_occupied_by_epinephrine">
+            <eqn>(EP_IN_P/Ki_for_beta1_of_epinephrine)*Common_Factor_For_Beta_1</eqn>
+            <units>Unitless</units>
+            <display x="1566" y="2126" color="blue" />
+        </aux>
+        <aux name="ki_for_beta_1_norepinephrine">
+            <eqn>3570*10^3/(10^6*5.914)</eqn>
+            <units>mg/l</units>
+            <display x="1426" y="1940" color="blue" />
+        </aux>
+        <aux name="beta_1_receptor_ratio_occupied_by_NE">
+            <eqn>(NE_IN_P/ki_for_beta_1_norepinephrine)*Common_Factor_For_Beta_1</eqn>
+            <units>Unitless</units>
+            <display x="1311" y="1931" color="blue" />
+        </aux>
+        <aux name="NE_effect_on_beta_1">
+            <eqn>(ki_for_beta_1_norepinephrine/EC50_NE_for_beta_1)*beta_1_receptor_ratio_occupied_by_NE</eqn>
+            <units>Unitless</units>
+            <display x="1248" y="1881" color="blue" />
+        </aux>
+        <aux name="E_effect_on_beta_1">
+            <eqn>(Ki_for_beta1_of_epinephrine/EC50_E_on_ARB1)*Beta_1_receptor_ratio_occupied_by_epinephrine</eqn>
+            <units>Unitless</units>
+            <display x="1230" y="1956" color="blue" />
+        </aux>
+        <aux name="EC50_NE_for_beta_1">
+            <eqn>236*(10^3)/(5.454*10^6)</eqn>
+            <units>mg/l</units>
+            <display x="1343" y="1843" color="blue" />
+        </aux>
+        <aux name="EC50_E_on_ARB1">
+            <eqn>23.6*(10^3)/(5.454*10^6)</eqn>
+            <units>mg/l</units>
+            <display x="1176" y="2026" color="blue" />
+        </aux>
+        <aux name="EP_IN_P">
+            <eqn>Epinephrine</eqn>
+            <units>mg/l</units>
+            <display x="1638" y="1969" color="blue" />
+        </aux>
+        <aux name="NE_IN_P">
+            <eqn>Norepinephrine</eqn>
+            <units>mg/l</units>
+            <display x="1553" y="1865" color="blue" />
+        </aux>
+        <aux name="Total_Effect_on_Beta_1">
+            <eqn>(E_effect_on_beta_1+NE_effect_on_beta_1)</eqn>
+            <units>Unitless</units>
+            <display x="1163" y="1926" color="blue" />
+        </aux>
+        <aux name="Effect_of_Total_Effect_on_Beta_1_on_Heart_Rate">
+            <eqn>Total_Effect_on_Beta_1/ref_total_effect_on_beta_1</eqn>
+            <gf>
+                <xscale min="0" max="3" />
+                <yscale min="0.6" max="1.65" />
+                <ypts>0.59999999999999998,0.60999999999999999,0.63,0.66000000000000003,0.69999999999999996,0.75,0.81000000000000005,0.871,0.93500000000000005,1,1.0649999999999999,1.129,1.1899999999999999,1.2450000000000001,1.29,1.3300000000000001,1.369,1.407,1.444,1.48,1.5149999999999999,1.5449999999999999,1.5700000000000001,1.595,1.615,1.635,1.645,1.6499999999999999</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1205" y="1799" color="blue" />
+        </aux>
+        <aux name="ATBP">
+            <eqn>1</eqn>
+            <units>hours</units>
+            <display x="833" y="1618" color="blue" />
+        </aux>
+        <stock name="BPI">
+            <eqn>84</eqn>
+            <inflow>change_rate_Bpi</inflow>
+            <non_negative />
+            <units>mmHg</units>
+            <display x="752" y="1599" color="blue">
+                <scale min="48" max="120" />
+            </display>
+        </stock>
+        <flow name="change_rate_Bpi">
+            <eqn>(implied_Bp-BPI)/ATBP</eqn>
+            <units>mmhg/hr</units>
+            <display x="753" y="1655" color="blue">
+                <pts>
+                    <pt x="753" y="1695" />
+                    <pt x="753" y="1616" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="implied_Bp">
+            <eqn>Desired_SVR*Cardiac_Output</eqn>
+            <units>mmHg</units>
+            <display x="688" y="1752" color="blue">
+                <scale min="60" max="150" />
+            </display>
+        </aux>
+        <aux name="implied_heart_rate_stocklu">
+            <eqn>reference_heart_rate*Effect_of_Total_Effect_on_Beta_1_on_Heart_Rate</eqn>
+            <units>per minute</units>
+            <display x="1050" y="1710" color="blue" />
+        </aux>
+        <aux name="reference_heart_rate">
+            <eqn>75</eqn>
+            <units>per minute</units>
+            <display x="1108" y="1753" color="blue" />
+        </aux>
+        <aux name="Ne">
+            <eqn>Norepinephrine</eqn>
+            <units>mg/l</units>
+            <display x="1659" y="2581" color="blue" />
+        </aux>
+        <aux name="E">
+            <eqn>Epinephrine</eqn>
+            <units>mg/l</units>
+            <display x="1624" y="2652" color="blue" />
+        </aux>
+        <aux name="Ki_NE_on_Alpha_1">
+            <eqn>199.52*(10^3)/(5.914*10^6)</eqn>
+            <units>mg/l</units>
+            <display x="1534" y="2632" color="blue" />
+        </aux>
+        <aux name="KI_E_on_alpha1">
+            <eqn>251.18*(10^3)/(5.914*10^6)</eqn>
+            <units>mg/l</units>
+            <display x="1328" y="2646" color="blue" label_angle="261" />
+        </aux>
+        <aux name="Common_factor_for_A1">
+            <eqn>1/(1+(E/KI_E_on_alpha1)+(Ne/Ki_NE_on_Alpha_1)+(Free_Prozasin_Conc/Ki_Pro_on_alpha1))</eqn>
+            <units>Unitless</units>
+            <display x="1393" y="2601" color="blue" />
+        </aux>
+        <aux name="Alpha_1_Receptor_Occupied_by_NE">
+            <eqn>Ne*Common_factor_for_A1/Ki_NE_on_Alpha_1</eqn>
+            <units>Unitless</units>
+            <display x="1521" y="2562" color="blue" />
+        </aux>
+        <aux name="Eff_of_Ne_on_Alpha1">
+            <eqn>(Alpha_1_Receptor_Occupied_by_NE*Ki_NE_on_Alpha_1/EC_50_NE_O_A1)</eqn>
+            <units>Unitless</units>
+            <display x="1180" y="2657" color="blue" />
+        </aux>
+        <aux name="EC_50_NE_O_A1">
+            <eqn>15*(10^3)/(5.914*10^6)</eqn>
+            <units>mg/l</units>
+            <display x="1127" y="2725" color="blue" />
+        </aux>
+        <aux name="reference_Svr">
+            <eqn>14</eqn>
+            <units>mmHg-min/l</units>
+            <display x="767" y="2275" color="blue" />
+        </aux>
+        <aux name="Desired_SVR">
+            <eqn>Eff_of_diameter_on_SVR*reference_Svr</eqn>
+            <units>mmHg-min/l</units>
+            <display x="719" y="2249" color="blue">
+                <scale min="8" max="20" />
+            </display>
+        </aux>
+        <aux name="Effect_of_Contraction__on_Stroke_Volume">
+            <eqn>Total_Effect_on_Beta_1/ref_total_effect_on_beta_1&#x0A;</eqn>
+            <gf>
+                <xscale min="0.3" max="2.05" />
+                <yscale min="0.2" max="1.6" />
+                <ypts>1.55,1.54,1.52,1.49,1.45,1.3999999999999999,1.3400000000000001,1.27,1.1899999999999999,1.1000000000000001,1,0.90100000000000002,0.80900000000000005,0.72299999999999998,0.64400000000000002,0.57099999999999995,0.505,0.44600000000000001,0.39300000000000002,0.34699999999999998,0.307,0.27400000000000002,0.248,0.22800000000000001,0.215,0.20799999999999999</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1122" y="1869" color="blue" />
+        </aux>
+        <aux name="ref_total_effect_on_beta_1">
+            <eqn>0.018474878</eqn>
+            <units>Unitless</units>
+            <display x="1308" y="1791" color="blue" />
+        </aux>
+        <aux name="reference_total_effect_on_alpha_1">
+            <eqn>0.155713802</eqn>
+            <units>Unitless</units>
+            <display x="1274" y="2793" color="blue" />
+        </aux>
+        <aux name="Effect_of_Afterload">
+            <eqn>(Desired_SVR/reference_Svr)</eqn>
+            <gf>
+                <xscale min="0" max="2.5" />
+                <yscale min="0.15" max="2.5" />
+                <ypts>0.17499999999999999,0.19,0.22,0.26500000000000001,0.32500000000000001,0.40000000000000002,0.48999999999999999,0.59499999999999997,0.71499999999999997,0.84999999999999998,1,1.1499999999999999,1.29,1.4199999999999999,1.54,1.6499999999999999,1.75,1.8400000000000001,1.9199999999999999,1.99,2.0499999999999998,2.1000000000000001,2.1400000000000001,2.1699999999999999,2.1899999999999999,2.2000000000000002</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="606" y="2270" color="blue" />
+        </aux>
+        <aux name="Productivity_of_each_neuron">
+            <eqn>1</eqn>
+            <units>pg/ml-burst</units>
+            <display x="1355" y="1210" color="blue" />
+        </aux>
+        <aux name="Effect_of_filling_time_on_Stroke_Volume">
+            <eqn>(implied_heart_rate_stocklu/reference_heart_rate)&#x0A;</eqn>
+            <gf>
+                <xscale min="0" max="2.5" />
+                <yscale min="0.3" max="3" />
+                <ypts>2.9500000000000002,2.9470000000000001,2.8889999999999998,2.8239999999999998,2.75,2.6669999999999998,2.5710000000000002,2.4620000000000002,2.3330000000000002,2.1819999999999999,2,1.8180000000000001,1.667,1.538,1.429,1.333,1.25,1.1759999999999999,1.111,1.0529999999999999,1,0.94699999999999995,0.90400000000000003,0.86499999999999999,0.82899999999999996,0.79600000000000004,0.76500000000000001,0.73699999999999999,0.71099999999999997,0.68600000000000005,0.66300000000000003,0.64200000000000002,0.622,0.60299999999999998,0.58499999999999996,0.56799999999999995,0.55300000000000005,0.53800000000000003,0.52400000000000002,0.51000000000000001,0.497,0.48499999999999999,0.47399999999999998,0.46300000000000002,0.45200000000000001,0.442,0.432,0.42299999999999999,0.41399999999999998,0.40600000000000003,0.40000000000000002</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1010" y="1756" color="blue" />
+        </aux>
+        <aux name="Discrepancy_between_operation_point_and_BP">
+            <eqn>BPI-Operation_point_of_Baroreceptor</eqn>
+            <units>mmHg</units>
+            <display x="815" y="1282" color="blue" />
+        </aux>
+        <aux name="Adjustment_time">
+            <eqn>12</eqn>
+            <units>hour</units>
+            <display x="877" y="1373" color="blue" />
+        </aux>
+        <aux name="Ratio_of_BPI_to_BOP">
+            <eqn>BPI/Operation_point_of_Baroreceptor</eqn>
+            <units>Unitless</units>
+            <display x="1012" y="1444" color="blue" />
+        </aux>
+        <aux name="Cardiac_Output">
+            <eqn>Average_Stroke_Volume*Heart_Rate/ml_to_l</eqn>
+            <units>l/min</units>
+            <display x="641" y="1671" color="blue" />
+        </aux>
+        <stock name="Oxygen_usage_store_in_the_cell">
+            <eqn>15*(10^6)</eqn>
+            <inflow>oxygen_replenishment_rate</inflow>
+            <outflow>oxidation_rate</outflow>
+            <non_negative />
+            <units>picomolar</units>
+            <display x="1062" y="940" color="blue" />
+        </stock>
+        <stock name="ROS_denge_lazim_unutma">
+            <eqn>100</eqn>
+            <inflow>oxidation_rate</inflow>
+            <outflow>Clearance</outflow>
+            <non_negative />
+            <units>picomolar</units>
+            <display x="1244" y="936" color="blue" />
+        </stock>
+        <flow name="Clearance">
+            <eqn>Clearance_ratio_onemli*ROS_denge_lazim_unutma</eqn>
+            <non_negative />
+            <units>picomolar/hr</units>
+            <display x="1301" y="926" color="blue" label_angle="274">
+                <pts>
+                    <pt x="1266" y="926" />
+                    <pt x="1337" y="926" />
+                </pts>
+            </display>
+        </flow>
+        <stock name="Expected_Clearance">
+            <eqn>90</eqn>
+            <inflow>Net_exchange_rate</inflow>
+            <non_negative />
+            <units>picomolar/hr</units>
+            <display x="1180" y="1022" color="blue" />
+        </stock>
+        <flow name="Net_exchange_rate">
+            <eqn>(Clearance-Expected_Clearance)/Adjustment_Time_1</eqn>
+            <non_negative />
+            <units>picomolar/hr^2</units>
+            <display x="1135" y="1036" color="blue">
+                <pts>
+                    <pt x="1112" y="1036" />
+                    <pt x="1158" y="1036" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Adjustment_Time_1">
+            <eqn>2</eqn>
+            <units>hours</units>
+            <display x="1130" y="1085" color="blue" />
+        </aux>
+        <aux name="Adjustment_time_oxygen">
+            <eqn>5</eqn>
+            <units>hours</units>
+            <display x="934" y="880" color="blue" />
+        </aux>
+        <aux name="Transformation_Ratio">
+            <eqn>Effect_of_Nox2_on_Transformation_ratio*reference_Transformation_ratio&#x0A;</eqn>
+            <units>1/hour</units>
+            <display x="1169" y="858" color="blue" />
+        </aux>
+        <aux name="Clearance_ratio_onemli">
+            <eqn>Effect_on_its_clearance*ref_clearance_ratio</eqn>
+            <units>1/hour</units>
+            <display x="1356" y="875" color="#FF7F00" />
+        </aux>
+        <aux name="Implied_Oxygen_in_the_cell">
+            <eqn>Reference_oxygen_in_the_cell*Effect_of_Velocity_of_blood_saatlik_mi_kontrol_et*Effect_of_F&amp;L_on_oxygen</eqn>
+            <units>picomolar</units>
+            <display x="1028" y="756" color="blue" label_angle="313" />
+        </aux>
+        <aux name="Discrepancy">
+            <eqn>Effect_of_implied_oxygen_in_the_cell*capacity_of_oxygen_in_cell-Oxygen_usage_store_in_the_cell</eqn>
+            <units>picomolar</units>
+            <display x="1027" y="870" color="blue" />
+        </aux>
+        <aux name="Velocity_of_blood">
+            <eqn>Cardiac_output*converter_L_to_cm3/total_cross_sectional_area</eqn>
+            <units>centimeter/min</units>
+            <display x="873" y="623" color="blue" />
+        </aux>
+        <stock name="Diameter_of_arterioles">
+            <eqn>8*(10^-4)</eqn>
+            <inflow>Net_change_in_Diameter</inflow>
+            <non_negative />
+            <units>centimeter</units>
+            <display x="752" y="2364" color="blue" />
+        </stock>
+        <aux name="Desired_diameter">
+            <eqn>Effect_of_total_effect_on_alpha1_on_diameter*reference_diameter*Effect_of_beta2_receptor_occupancy_on_arterioles_diameter</eqn>
+            <units>centimeter</units>
+            <display x="627" y="2403" color="blue" />
+        </aux>
+        <aux name="Diameter_Adustment_time">
+            <eqn>1</eqn>
+            <units>hours</units>
+            <display x="614" y="2327" color="blue" />
+        </aux>
+        <aux name="Unit_Cross_Sectional_Area">
+            <eqn>3*(Diameter_of_arterioles^2)</eqn>
+            <units>centimeter-centimeter</units>
+            <display x="860" y="549" color="blue" />
+        </aux>
+        <aux name="Number_of_capillaries">
+            <eqn>2500*10^8/192</eqn>
+            <units>Unitless</units>
+            <display x="949" y="498" color="blue" label_angle="257" />
+        </aux>
+        <aux name="Reference_oxygen_in_the_cell">
+            <eqn>15*(10^6)</eqn>
+            <units>picomolar</units>
+            <display x="952" y="729" color="blue" />
+        </aux>
+        <aux name="Effect_of_Velocity_of_blood_saatlik_mi_kontrol_et">
+            <eqn>(Velocity_of_blood/reference_Velocity_of_Blood)</eqn>
+            <gf>
+                <xscale min="0" max="2" />
+                <yscale min="0" max="2" />
+                <ypts>0,0.050000000000000003,0.14999999999999999,0.29999999999999999,0.5,0.75,1,1.25,1.5,1.7,1.8500000000000001,1.95,2</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="820" y="708" color="#F764FF" />
+        </aux>
+        <aux name="reference_Velocity_of_Blood">
+            <eqn>2.4</eqn>
+            <units>cm/min</units>
+            <display x="930" y="681" color="#7ACBA0" />
+        </aux>
+        <aux name="total_cross_sectional_area">
+            <eqn>Number_of_capillaries*Unit_Cross_Sectional_Area</eqn>
+            <units>centimeter-centimeter</units>
+            <display x="933" y="589" color="blue" />
+        </aux>
+        <stock name="o2_saturation_arterial_percentage_Ayar_lazim_unutma">
+            <eqn>97</eqn>
+            <inflow>Respiratory_Rate</inflow>
+            <non_negative />
+            <units>Unitless</units>
+            <display x="1042" y="329" color="#F764FF">
+                <scale min="0" max="100" />
+            </display>
+        </stock>
+        <aux name="percentage_of_breathing">
+            <eqn>(1-duration_of_Ahi*Ahi_distribution)</eqn>
+            <units>Unitless</units>
+            <display x="1090" y="117" color="blue" />
+        </aux>
+        <aux name="Effect_of_ref_Ahi_distribution">
+            <eqn>time mod 24</eqn>
+            <gf>
+                <xscale min="0" max="24" />
+                <yscale min="0" max="20" />
+                <ypts>4,7,11,16,11,7,4,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,4</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1054" y="34" color="blue" />
+        </aux>
+        <aux name="duration_of_Ahi">
+            <eqn>1/360</eqn>
+            <units>hour</units>
+            <display x="1199" y="50" color="blue" />
+        </aux>
+        <aux name="ref_Ahi_index">
+            <eqn>6</eqn>
+            <units>Unitless</units>
+            <display x="939" y="100" color="blue" />
+        </aux>
+        <aux name="ahi_index">
+            <eqn>0</eqn>
+            <units>Unitless</units>
+            <display x="969" y="53" color="blue" />
+        </aux>
+        <aux name="ratio_of_AI_to_Ref_AI">
+            <eqn>ahi_index/ref_Ahi_index</eqn>
+            <units>Unitless</units>
+            <display x="1021" y="82" color="blue" />
+        </aux>
+        <aux name="implied_o2_saturation_arterial">
+            <eqn>implied_percentage_of_breathing*reference_o2_arterial_saturation_percentage</eqn>
+            <units>Unitless</units>
+            <display x="1022" y="242" color="blue" />
+        </aux>
+        <aux name="reference_o2_arterial_saturation_percentage">
+            <eqn>97</eqn>
+            <units>Unitless</units>
+            <display x="1112" y="189" color="blue" />
+        </aux>
+        <aux name="respiratory_adjustment_time">
+            <eqn>0.2</eqn>
+            <units>hour</units>
+            <display x="907" y="395" color="blue" />
+        </aux>
+        <aux name="reference_02_saturation_arterial_percentage">
+            <eqn>100</eqn>
+            <units>Unitless</units>
+            <display x="1159" y="342" color="blue" />
+        </aux>
+        <aux name="effect_of_ratio_OSAP_to_ROSAP_on_rate_of_dissociation_ratio">
+            <eqn>o2_saturation_arterial_percentage_Ayar_lazim_unutma/reference_02_saturation_arterial_percentage</eqn>
+            <gf>
+                <xscale min="0.5" max="0.97" />
+                <yscale min="1" max="12" />
+                <ypts>1,1.0900000000000001,1.27,1.54,1.8999999999999999,2.3500000000000001,2.8900000000000001,3.52,4.2400000000000002,5.0499999999999998,6.5,7.9500000000000002,8.7599999999999998,9.4800000000000004,10.109999999999999,10.65,11.1,11.460000000000001,11.73,11.91,12</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1176" y="289" color="blue" />
+        </aux>
+        <aux name="implied_percentage_of_breathing">
+            <eqn>MAX(0.515,percentage_of_breathing)</eqn>
+            <units>Unitless</units>
+            <display x="1000" y="157" color="blue" />
+        </aux>
+        <aux name="dissociation_ratio">
+            <eqn>reference_dissociation_ratio*effect_of_ratio_OSAP_to_ROSAP_on_rate_of_dissociation_ratio</eqn>
+            <units>1/hour</units>
+            <display x="1161" y="420" color="#FF7F00" />
+        </aux>
+        <aux name="reference_dissociation_ratio">
+            <eqn>0.35</eqn>
+            <units>1/hour</units>
+            <display x="1288" y="383" color="blue" />
+        </aux>
+        <aux name="Ahi_distribution">
+            <eqn>Effect_of_ref_Ahi_distribution*ratio_of_AI_to_Ref_AI</eqn>
+            <units>Unitless</units>
+            <display x="1125" y="67" color="blue" />
+        </aux>
+        <flow name="Respiratory_Rate">
+            <eqn>(implied_o2_saturation_arterial-o2_saturation_arterial_percentage_Ayar_lazim_unutma)/respiratory_adjustment_time</eqn>
+            <units>per hour</units>
+            <display x="981" y="329" color="blue">
+                <pts>
+                    <pt x="942" y="329" />
+                    <pt x="1020" y="329" />
+                </pts>
+            </display>
+        </flow>
+        <stock name="Oxidased_Ryr1">
+            <eqn>100</eqn>
+            <inflow>oxidation_rate_1</inflow>
+            <outflow>oxidased_ryr1_destr_rate</outflow>
+            <non_negative />
+            <units>Kda</units>
+            <display x="1733" y="443" color="blue" label_side="bottom" label_angle="278" />
+        </stock>
+        <stock name="Ryr1">
+            <eqn>400</eqn>
+            <inflow>basal_ryr1_production_rate?</inflow>
+            <outflow>Ryr1_destruction_rate</outflow>
+            <outflow>oxidation_rate_1</outflow>
+            <non_negative />
+            <units>Kda</units>
+            <display x="1855" y="442" color="blue" label_side="bottom" label_angle="273" />
+        </stock>
+        <flow name="oxidased_ryr1_destr_rate">
+            <eqn>Oxidased_Ryr1*destruction_ratio</eqn>
+            <non_negative />
+            <units>kda/hr</units>
+            <display x="1699" y="376" color="blue">
+                <pts>
+                    <pt x="1729" y="426" />
+                    <pt x="1729" y="376" />
+                    <pt x="1670" y="376" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Ryr1_destruction_rate">
+            <eqn>Ryr1*destruction_ratio</eqn>
+            <non_negative />
+            <units>kda/hr</units>
+            <display x="1904" y="373" color="blue" label_angle="286">
+                <pts>
+                    <pt x="1858" y="425" />
+                    <pt x="1858" y="373" />
+                    <pt x="1950" y="373" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="basal_ryr1_production_rate?">
+            <eqn>4</eqn>
+            <non_negative />
+            <units>kda/hr</units>
+            <display x="1921" y="454" color="blue" label_side="right" label_angle="283">
+                <pts>
+                    <pt x="1966" y="454" />
+                    <pt x="1877" y="454" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="destruction_ratio">
+            <eqn>0.008</eqn>
+            <units>1/hour</units>
+            <display x="1801" y="291" color="blue" />
+        </aux>
+        <aux name="normal_ORYR1">
+            <eqn>100</eqn>
+            <units>Kda</units>
+            <display x="1778" y="546" color="blue" />
+        </aux>
+        <aux name="ORYR1">
+            <eqn>Oxidased_Ryr1/normal_ORYR1</eqn>
+            <units>Unitless</units>
+            <display x="1847" y="571" color="blue" />
+        </aux>
+        <stock name="pot_oxidation_fraction">
+            <eqn>2*(10^-3)</eqn>
+            <inflow>change_in_oxidation_fr</inflow>
+            <non_negative />
+            <units>1/hour</units>
+            <display x="2037" y="624" color="blue" />
+        </stock>
+        <flow name="change_in_oxidation_fr">
+            <eqn>disc/Delay_of_oxidation_fraction</eqn>
+            <units>1/hour-hr</units>
+            <display x="2104" y="618" color="blue">
+                <pts>
+                    <pt x="2149" y="618" />
+                    <pt x="2059" y="618" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="desired_trap_fr">
+            <eqn>(effect_on_oxidation_fraction)*normal_trap_fr</eqn>
+            <units>1/hour</units>
+            <display x="1921" y="674" color="blue" />
+        </aux>
+        <aux name="effect_on_oxidation_fraction">
+            <eqn>ORYR1</eqn>
+            <gf>
+                <xscale min="0" max="2" />
+                <yscale min="0" max="2" />
+                <ypts>2,1.99,1.97,1.9399999999999999,1.8999999999999999,1.8500000000000001,1.8049999999999999,1.7450000000000001,1.6799999999999999,1.6000000000000001,1.5,0.95599999999999996,0.61199999999999999,0.39600000000000002,0.25900000000000001,0.17299999999999999,0.11799999999999999,0.084000000000000005,0.062,0.049000000000000002,0.040000000000000001</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1854" y="641" color="red" />
+        </aux>
+        <aux name="disc">
+            <eqn>desired_trap_fr-pot_oxidation_fraction</eqn>
+            <units>1/hour</units>
+            <display x="2017" y="690" color="blue" />
+        </aux>
+        <aux name="Delay_of_oxidation_fraction">
+            <eqn>1</eqn>
+            <units>hour</units>
+            <display x="2122" y="536" color="blue" />
+        </aux>
+        <stock name="Nox2_weight_in_action_site">
+            <eqn>13.65</eqn>
+            <inflow>Arrangement_Rate</inflow>
+            <outflow>dissociation_rate</outflow>
+            <non_negative />
+            <units>Kda</units>
+            <display x="1336" y="500" color="blue" label_angle="93" />
+        </stock>
+        <aux name="total_nox2_weight">
+            <eqn>91</eqn>
+            <units>Kda</units>
+            <display x="1541" y="554" color="blue" />
+        </aux>
+        <flow name="dissociation_rate">
+            <eqn>Nox2_weight_in_action_site*dissociation_ratio</eqn>
+            <non_negative />
+            <units>kda/hr</units>
+            <display x="1255" y="497" color="blue">
+                <pts>
+                    <pt x="1314" y="497" />
+                    <pt x="1196" y="497" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="arrangement_ratio">
+            <eqn>effect_of_ratio_on_arrangement_ratio*normal_arrangement_ratio</eqn>
+            <units>1/hour</units>
+            <display x="1454" y="436" color="blue" />
+        </aux>
+        <aux name="ratio_of_nox2_in_action_site_to_total">
+            <eqn>Nox2_weight_in_action_site/total_nox2_weight</eqn>
+            <units>Unitless</units>
+            <display x="1511" y="385" color="blue" />
+        </aux>
+        <aux name="effect_of_ratio_on_arrangement_ratio">
+            <eqn>ratio_of_nox2_in_action_site_to_total</eqn>
+            <gf>
+                <xscale min="0.15" max="0.6" />
+                <yscale min="0.33" max="1" />
+                <ypts>1,0.88,0.76200000000000001,0.66600000000000004,0.58199999999999996,0.51000000000000001,0.45000000000000001,0.40200000000000002,0.36599999999999999,0.34200000000000003,0.33000000000000002</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1519" y="456" color="black" />
+        </aux>
+        <aux name="normal_arrangement_ratio">
+            <eqn>0.63</eqn>
+            <units>1/hour</units>
+            <display x="1402" y="399" color="blue" />
+        </aux>
+        <aux name="Normal_ROS">
+            <eqn>100</eqn>
+            <units>micromolar</units>
+            <display x="1470" y="658" color="blue" />
+        </aux>
+        <aux name="Effect_of_ROS_ratio">
+            <eqn>Average_ROS_on_receptor_site/Normal_ROS</eqn>
+            <gf>
+                <xscale min="0" max="2" />
+                <yscale min="0.3" max="1.66" />
+                <ypts>0.33333333300000001,0.34246575299999998,0.35714285699999998,0.37878787899999999,0.40650406500000003,0.44052863399999997,0.48309178699999999,0.54347826099999996,0.625,0.75757575799999999,1,1.242424242,1.375,1.456521739,1.516908213,1.5594713659999999,1.593495935,1.6212121209999999,1.6428571430000001,1.6575342470000001,1.6666666670000001</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1593" y="704" color="blue" />
+        </aux>
+        <flow name="Arrangement_Rate">
+            <eqn>arrangement_ratio*total_nox2_weight</eqn>
+            <non_negative />
+            <units>kda/hr</units>
+            <display x="1402" y="499" color="blue">
+                <pts>
+                    <pt x="1447" y="499" />
+                    <pt x="1358" y="499" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="normal_trap_fr">
+            <eqn>2*(10^-3)/1.5</eqn>
+            <units>1/hour</units>
+            <display x="1822" y="700" color="blue" />
+        </aux>
+        <flow name="oxidation_rate_1">
+            <eqn>Ryr1*pot_oxidation_fraction*(Effect_of_ROS_ratio)</eqn>
+            <non_negative />
+            <units>kda/hr</units>
+            <display x="1794" y="442" color="blue">
+                <pts>
+                    <pt x="1833" y="442" />
+                    <pt x="1755" y="442" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="reference_Transformation_ratio">
+            <eqn>6*(10^-6)</eqn>
+            <units>1/hour</units>
+            <display x="1171" y="786" color="blue" label_side="top" label_angle="39" />
+        </aux>
+        <stock name="First_smoothing">
+            <eqn>100</eqn>
+            <inflow>Smoothing_Rate1</inflow>
+            <non_negative />
+            <units>picomolar</units>
+            <display x="1516" y="832" color="blue" />
+        </stock>
+        <flow name="Smoothing_Rate1">
+            <eqn>(ROS_denge_lazim_unutma-First_smoothing)/Nox2_informational_delay</eqn>
+            <units>picomolar/hr</units>
+            <display x="1585" y="815" color="blue">
+                <pts>
+                    <pt x="1633" y="815" />
+                    <pt x="1538" y="815" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Nox2_informational_delay">
+            <eqn>24</eqn>
+            <units>hour</units>
+            <display x="1657" y="899" color="blue" />
+        </aux>
+        <stock name="Second_smoothing">
+            <eqn>100</eqn>
+            <inflow>Smoothing_Rate2</inflow>
+            <non_negative />
+            <units>picomolar</units>
+            <display x="1500" y="908" color="blue" />
+        </stock>
+        <flow name="Smoothing_Rate2">
+            <eqn>(First_smoothing-Second_smoothing)/Nox2_informational_delay</eqn>
+            <units>picomolar/hr</units>
+            <display x="1552" y="900" color="blue">
+                <pts>
+                    <pt x="1582" y="900" />
+                    <pt x="1522" y="900" />
+                </pts>
+            </display>
+        </flow>
+        <stock name="Average_ROS_on_receptor_site">
+            <eqn>100</eqn>
+            <inflow>Smoothing_Rate3</inflow>
+            <non_negative />
+            <units>picomolar</units>
+            <display x="1474" y="997" color="blue" label_angle="80" />
+        </stock>
+        <flow name="Smoothing_Rate3">
+            <eqn>(Second_smoothing-Average_ROS_on_receptor_site)/Nox2_informational_delay</eqn>
+            <units>picomolar/hr</units>
+            <display x="1528" y="990" color="blue">
+                <pts>
+                    <pt x="1560" y="990" />
+                    <pt x="1496" y="990" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Nox2_normal_weight">
+            <eqn>13.65</eqn>
+            <units>Kda</units>
+            <display x="1409" y="604" color="blue" />
+        </aux>
+        <aux name="Effect_of_Nox2_on_Transformation_ratio">
+            <eqn>Nox2_weight_in_action_site/Nox2_normal_weight</eqn>
+            <gf>
+                <xscale min="0" max="2" />
+                <yscale min="0.15" max="1.85" />
+                <ypts>0.16666666699999999,0.17499999999999999,0.20000000000000001,0.241666667,0.29999999999999999,0.375,0.46666666699999998,0.57499999999999996,0.69999999999999996,0.84166666700000003,1,1.1583333330000001,1.3,1.425,1.5333333330000001,1.625,1.7,1.7583333329999999,1.8,1.825,1.8333333329999999</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1263" y="565" color="black" />
+        </aux>
+        <flow name="Net_change_in_Diameter">
+            <eqn>(Desired_diameter-Diameter_of_arterioles)/Diameter_Adustment_time</eqn>
+            <units>cm/hr</units>
+            <display x="696" y="2367" color="blue">
+                <pts>
+                    <pt x="663" y="2367" />
+                    <pt x="730" y="2367" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Effect_of_RYR1">
+            <eqn>ORYR1</eqn>
+            <gf>
+                <xscale min="0.5" max="1.5" />
+                <yscale min="0.726" max="1.327" />
+                <ypts>0.72557067900000005,0.73058006200000003,0.74065526500000001,0.75590986999999998,0.77651601599999998,0.80000000000000004,0.83477787999999997,0.87032439500000003,0.90955354099999997,0.95269458799999995,1,1.0486601200000001,1.095532111,1.1403926470000001,1.1830270140000001,1.223230348,1.2573636720000001,1.285087729,1.3061264480000001,1.3202700350000001,1.3273773200000001</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1717" y="693" color="blue" />
+        </aux>
+        <aux name="reference_diameter">
+            <eqn>8*(10^-4)</eqn>
+            <units>centimeter</units>
+            <display x="729" y="2469" color="blue" />
+        </aux>
+        <aux name="Effect_of_total_effect_on_alpha1_on_diameter">
+            <eqn>Eff_of_Ne_on_Alpha1/reference_total_effect_on_alpha_1</eqn>
+            <gf>
+                <xscale min="0.6" max="1.4" />
+                <yscale min="0.84" max="1.17" />
+                <ypts>1.1100000000000001,1.1080000000000001,1.1040000000000001,1.0980000000000001,1.0900000000000001,1.0800000000000001,1.0680000000000001,1.054,1.038,1.02,1,0.97999999999999998,0.96199999999999997,0.94599999999999995,0.93200000000000005,0.92000000000000004,0.91000000000000003,0.90200000000000002,0.89600000000000002,0.89200000000000002,0.89000000000000001</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1115" y="2794" color="blue" />
+        </aux>
+        <aux name="Eff_of_diameter_on_SVR">
+            <eqn>(reference_diameter/Diameter_of_arterioles)^4</eqn>
+            <units>Unitless</units>
+            <display x="853" y="2323" color="blue" />
+        </aux>
+        <aux name="reference_Ros">
+            <eqn>100</eqn>
+            <units>micromolar</units>
+            <display x="1322" y="1052" color="blue" />
+        </aux>
+        <aux name="Effect_of_Ros_on_sympathetic_impulse">
+            <eqn>ROS_denge_lazim_unutma/reference_Ros</eqn>
+            <gf>
+                <xscale min="0" max="2" />
+                <yscale min="0.1" max="3.6" />
+                <ypts>0.185193001,0.190109374,0.19511200100000001,0.20537900000000001,0.23832799900000001,0.287495999,0.35791099900000001,0.45653300099999999,0.59270400000000001,0.76606087300000003,1,1.511654404,1.80134835,2.0735999999999999,2.3437500039999999,2.6060968550000001,2.8551244520000001,3.0856235989999998,3.2928000059999998,3.435945604,3.5090483940000001</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1252" y="1122" color="blue" />
+        </aux>
+        <aux name="converter_L_to_cm3">
+            <eqn>1000</eqn>
+            <units>centimeter^3/liter</units>
+            <display x="661" y="818" color="blue" />
+        </aux>
+        <flow name="oxygen_replenishment_rate">
+            <eqn>Discrepancy/Adjustment_time_oxygen+Expected_Clearance</eqn>
+            <units>picomolar/hr</units>
+            <display x="990" y="936" color="blue">
+                <pts>
+                    <pt x="940" y="936" />
+                    <pt x="1040" y="936" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Net_change_Ne_loss">
+            <eqn>(Clearance_rate-Expected_Loss_in_Ne)/ETNL</eqn>
+            <units>pg/hour-hr-ml</units>
+            <display x="1782" y="1232" color="blue">
+                <pts>
+                    <pt x="1816" y="1232" />
+                    <pt x="1749" y="1232" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Net_change_E_loss1">
+            <eqn>(Clear_Rate_of_Epinephrine_in_Urine-Expected_Loss_in_E)/ETEL</eqn>
+            <units>pg/hour-hr-ml</units>
+            <display x="1622" y="1672" color="blue">
+                <pts>
+                    <pt x="1597" y="1672" />
+                    <pt x="1647" y="1672" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="reference_transformation_rate">
+            <eqn>0.5</eqn>
+            <units>hour</units>
+            <display x="1783" y="1580" color="blue" />
+        </aux>
+        <aux name="converter_pgml_to_mgl">
+            <eqn>(10^-6)</eqn>
+            <units>mg-ml/pg-l</units>
+            <display x="1849" y="1800" color="blue" />
+        </aux>
+        <aux name="Effect_on_its_clearance">
+            <eqn>ROS_denge_lazim_unutma/reference_Ros</eqn>
+            <gf>
+                <xscale min="0" max="2" />
+                <yscale min="0.5" max="2" />
+                <ypts>0.59259650100000005,0.59505468699999997,0.59755600099999995,0.60268949999999999,0.61916400000000005,0.64374799999999999,0.67895550000000005,0.72826650100000001,0.79635199999999995,0.88303043699999995,1,1.1298560019999999,1.250561813,1.3640000000000001,1.4765625019999999,1.5858736899999999,1.6896351890000001,1.7856765000000001,1.8720000029999999,1.9316440020000001,1.9621034980000001</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1352" y="993" color="blue" />
+        </aux>
+        <aux name="capacity_of_oxygen_in_cell">
+            <eqn>30*(10^6)</eqn>
+            <units>picomolar</units>
+            <display x="1095" y="705" color="blue" />
+        </aux>
+        <aux name="Effect_of_implied_oxygen_in_the_cell">
+            <eqn>Implied_Oxygen_in_the_cell/capacity_of_oxygen_in_cell</eqn>
+            <gf>
+                <xscale min="0" max="2" />
+                <yscale min="0" max="1" />
+                <ypts>0,0.10000000000000001,0.20000000000000001,0.29999999999999999,0.40000000000000002,0.5,0.59999999999999998,0.69999999999999996,0.80000000000000004,0.84999999999999998,0.90000000000000002,0.93999999999999995,0.96999999999999997,0.98999999999999999,1,1,1,1,1,1,1</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1057" y="803" color="blue" />
+        </aux>
+        <aux name="ref_clearance_ratio">
+            <eqn>0.9</eqn>
+            <units>1/hour</units>
+            <display x="1397" y="838" color="blue" />
+        </aux>
+        <aux name="ml_to_l">
+            <eqn>1000</eqn>
+            <units>ml/l</units>
+            <display x="643" y="1540" color="blue" />
+        </aux>
+        <aux name="Effect_of_F&amp;L_on_oxygen">
+            <eqn>2</eqn>
+            <gf>
+                <xscale min="0" max="24" />
+                <yscale min="0.2" max="1.9" />
+                <ypts>0.47499999999999998,0.69999999999999996,1,1.0149999999999999,1.0449999999999999,1.0900000000000001,1.1499999999999999,1.2250000000000001,1.3149999999999999,1.4199999999999999,1.54,1.5249999999999999,1.4950000000000001,1.45,1.3899999999999999,1.3149999999999999,1.2250000000000001,1.1200000000000001,1,0.69999999999999996,0.47499999999999998,0.32500000000000001,0.25,0.32500000000000001,0.47499999999999998</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="762" y="777" color="blue" />
+        </aux>
+        <stock name="Average_Stroke_Volume">
+            <eqn>80</eqn>
+            <inflow>Adjustment_rate</inflow>
+            <non_negative />
+            <units>milliliters</units>
+            <display x="731" y="1829" color="blue">
+                <scale min="60" max="100" />
+            </display>
+        </stock>
+        <aux name="Adjustment_Time_2">
+            <eqn>1</eqn>
+            <units>hour</units>
+            <display x="627" y="1790" color="blue" />
+        </aux>
+        <flow name="Adjustment_rate">
+            <eqn>(LHSV-Average_Stroke_Volume)/(Adjustment_Time_2)</eqn>
+            <units>ml/hr</units>
+            <display x="680" y="1827" color="blue">
+                <pts>
+                    <pt x="651" y="1827" />
+                    <pt x="709" y="1827" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="oxidation_rate">
+            <eqn>Oxygen_usage_store_in_the_cell*Transformation_Ratio</eqn>
+            <non_negative />
+            <units>picomolar/hr</units>
+            <display x="1153" y="939" color="blue">
+                <pts>
+                    <pt x="1084" y="939" />
+                    <pt x="1222" y="939" />
+                </pts>
+            </display>
+        </flow>
+        <stock name="Average_SNA">
+            <eqn>40</eqn>
+            <inflow>Balance_Rate</inflow>
+            <non_negative />
+            <units>burst</units>
+            <display x="1323" y="1514" color="blue" />
+        </stock>
+        <flow name="Balance_Rate">
+            <eqn>(Implied_SNA-Average_SNA)/Balance_Time</eqn>
+            <units>burst/hr</units>
+            <display x="1324" y="1440" color="blue">
+                <pts>
+                    <pt x="1324" y="1384" />
+                    <pt x="1324" y="1497" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Balance_Time">
+            <eqn>1</eqn>
+            <units>hour</units>
+            <display x="1362" y="1383" color="blue" />
+        </aux>
+        <stock name="Heart_Rate">
+            <eqn>75</eqn>
+            <inflow>Modification_rate</inflow>
+            <non_negative />
+            <units>per minute</units>
+            <display x="1133" y="1613" color="blue">
+                <scale min="60" max="90" />
+            </display>
+        </stock>
+        <flow name="Modification_rate">
+            <eqn>(implied_heart_rate_stocklu-Heart_Rate)/modification_time</eqn>
+            <units>1/hr-min</units>
+            <display x="1084" y="1614" color="blue">
+                <pts>
+                    <pt x="1057" y="1614" />
+                    <pt x="1111" y="1614" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="modification_time">
+            <eqn>1</eqn>
+            <units>hour</units>
+            <display x="1002" y="1543" color="blue" />
+        </aux>
+        <aux name="Atenolol_Dosage">
+            <eqn>25</eqn>
+            <units>milligrams</units>
+            <display x="1205" y="2195" color="blue" />
+        </aux>
+        <stock name="Conc_of_NonAbs_Atenolol">
+            <eqn>0</eqn>
+            <inflow>Dosage_Rate</inflow>
+            <outflow>Absorption_Rate</outflow>
+            <non_negative />
+            <units>milligrams/l</units>
+            <display x="1257" y="2292" color="blue" />
+        </stock>
+        <aux name="Bioavailability">
+            <eqn>0.56</eqn>
+            <units>Unitless</units>
+            <display x="1181" y="2366" color="blue" />
+        </aux>
+        <stock name="Free_Aten_Conc">
+            <eqn>0</eqn>
+            <inflow>Absorption_Rate</inflow>
+            <outflow>Elimination_Rate</outflow>
+            <outflow>Bound_Rate_to_Plazma_Proteins</outflow>
+            <non_negative />
+            <units>milligrams/l</units>
+            <display x="1391" y="2292" color="blue" />
+        </stock>
+        <aux name="Abs_R_of_atenolol">
+            <eqn>0.1411</eqn>
+            <units>per hour</units>
+            <display x="1315" y="2355" color="blue" />
+        </aux>
+        <flow name="Elimination_Rate">
+            <eqn>Free_Aten_Conc*Elimination_Constant</eqn>
+            <non_negative />
+            <units>milligrams/hr-l</units>
+            <display x="1394" y="2361" color="blue" label_side="top" label_angle="87">
+                <pts>
+                    <pt x="1394" y="2309" />
+                    <pt x="1394" y="2414" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Clearence_Of_Atenolol">
+            <eqn>10.2</eqn>
+            <units>l/hour</units>
+            <display x="1453" y="2434" color="blue" />
+        </aux>
+        <stock name="Conc_Bound_Plas_Prot">
+            <eqn>0</eqn>
+            <inflow>Bound_Rate_to_Plazma_Proteins</inflow>
+            <non_negative />
+            <units>milligrams/l</units>
+            <display x="1554" y="2293" color="blue" />
+        </stock>
+        <flow name="Bound_Rate_to_Plazma_Proteins">
+            <eqn>(Desired_Conc_Bound_Plas_Prot-Conc_Bound_Plas_Prot)/ADJ_TIME_1</eqn>
+            <units>milligrams/hr-l</units>
+            <display x="1472" y="2289" color="blue" label_angle="254">
+                <pts>
+                    <pt x="1413" y="2289" />
+                    <pt x="1532" y="2289" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Plasma_Protein_Binding_Ratio">
+            <eqn>0.05</eqn>
+            <units>Unitless</units>
+            <display x="1499" y="2234" color="blue" />
+        </aux>
+        <flow name="Absorption_Rate">
+            <eqn>Abs_R_of_atenolol*Conc_of_NonAbs_Atenolol</eqn>
+            <non_negative />
+            <units>milligrams/hr-l</units>
+            <display x="1324" y="2292" color="blue">
+                <pts>
+                    <pt x="1279" y="2292" />
+                    <pt x="1369" y="2292" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Elimination_Constant">
+            <eqn>Clearence_Of_Atenolol/Volume_Distribution_of_Atenolol</eqn>
+            <units>per hour</units>
+            <display x="1465" y="2372" color="blue" label_angle="257" />
+        </aux>
+        <aux name="Volume_Distribution_of_Atenolol">
+            <eqn>67</eqn>
+            <units>liters</units>
+            <display x="1375" y="2475" color="blue" />
+        </aux>
+        <aux name="Desired_Conc_Bound_Plas_Prot">
+            <eqn>Free_Aten_Conc*Plasma_Protein_Binding_Ratio</eqn>
+            <units>mg/l</units>
+            <display x="1579" y="2341" color="blue" />
+        </aux>
+        <aux name="ADJ_TIME_1">
+            <eqn>1</eqn>
+            <units>hour</units>
+            <display x="1515" y="2323" color="blue" />
+        </aux>
+        <aux name="Beta_1_Receptor_ratio_Occupied_by_atenolol">
+            <eqn>(Free_Aten_Conc/KD_of_atenolol)*Common_Factor_For_Beta_1</eqn>
+            <units>Unitless</units>
+            <display x="1340" y="2062" color="blue" />
+        </aux>
+        <aux name="KD_of_atenolol">
+            <eqn>(388)*266.336*(10^-9)*(10^3)*5</eqn>
+            <units>mg/l</units>
+            <display x="1422" y="2089" color="blue" />
+        </aux>
+        <stock name="Conc_of_Prozasin">
+            <eqn>0</eqn>
+            <inflow>inflow_rate</inflow>
+            <outflow>Absorption_Rate_of_Pro</outflow>
+            <non_negative />
+            <units>mg/l</units>
+            <display x="1475" y="2848" color="blue" />
+        </stock>
+        <aux name="Prozasin_Dosage">
+            <eqn>0</eqn>
+            <units>milligrams</units>
+            <display x="1389" y="2777" color="blue" />
+        </aux>
+        <aux name="Bio_Prozasin">
+            <eqn>0.68</eqn>
+            <units>Unitless</units>
+            <display x="1392" y="2882" color="blue" />
+        </aux>
+        <aux name="Volume_distriburion_of_Prozasin">
+            <eqn>42</eqn>
+            <units>liters</units>
+            <display x="1719" y="2940" color="blue" label_angle="266" />
+        </aux>
+        <stock name="Free_Prozasin_Conc">
+            <eqn>0</eqn>
+            <inflow>Absorption_Rate_of_Pro</inflow>
+            <outflow>Elimination_Rate_of_Prozasin</outflow>
+            <outflow>Bound_rate_to_Plasma_Proteins</outflow>
+            <non_negative />
+            <units>mg/l</units>
+            <display x="1629" y="2847" color="blue" label_angle="85" />
+        </stock>
+        <flow name="Absorption_Rate_of_Pro">
+            <eqn>Conc_of_Prozasin*Abs_ratio_of_Pro</eqn>
+            <non_negative />
+            <units>mg/hr-l</units>
+            <display x="1552" y="2849" color="blue">
+                <pts>
+                    <pt x="1497" y="2849" />
+                    <pt x="1607" y="2849" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Abs_ratio_of_Pro">
+            <eqn>0.3943</eqn>
+            <units>per hour</units>
+            <display x="1506" y="2907" color="blue" />
+        </aux>
+        <flow name="Elimination_Rate_of_Prozasin">
+            <eqn>Free_Prozasin_Conc*El_C_prozasin</eqn>
+            <non_negative />
+            <units>mg/hr-l</units>
+            <display x="1631" y="2900" color="blue">
+                <pts>
+                    <pt x="1631" y="2864" />
+                    <pt x="1631" y="2937" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Cl_of_Prozasin">
+            <eqn>12.6</eqn>
+            <units>l/hour</units>
+            <display x="1797" y="2904" color="blue" />
+        </aux>
+        <aux name="El_C_prozasin">
+            <eqn>Cl_of_Prozasin/Volume_distriburion_of_Prozasin</eqn>
+            <units>per hour</units>
+            <display x="1728" y="2874" color="blue" />
+        </aux>
+        <stock name="Conc_Bound_to_Plasma">
+            <eqn>0</eqn>
+            <inflow>Bound_rate_to_Plasma_Proteins</inflow>
+            <non_negative />
+            <units>mg/l</units>
+            <display x="1620" y="2725" color="blue" />
+        </stock>
+        <aux name="PPBRP">
+            <eqn>0.95</eqn>
+            <units>Unitless</units>
+            <display x="1756" y="2785" color="blue" />
+        </aux>
+        <aux name="Desired_Conc">
+            <eqn>Free_Prozasin_Conc*PPBRP</eqn>
+            <units>mg/l</units>
+            <display x="1731" y="2732" color="blue" />
+        </aux>
+        <aux name="ADJ_T_2">
+            <eqn>1</eqn>
+            <units>hour</units>
+            <display x="1549" y="2746" color="blue" />
+        </aux>
+        <aux name="Ki_Pro_on_alpha1">
+            <eqn>0.65*(10^-9)*(10^3)*383.401</eqn>
+            <units>mg/l</units>
+            <display x="1269" y="2592" color="blue" label_side="right" label_angle="288" />
+        </aux>
+        <flow name="Bound_rate_to_Plasma_Proteins">
+            <eqn>(Desired_Conc-Conc_Bound_to_Plasma)/ADJ_T_2</eqn>
+            <units>mg/hr-l</units>
+            <display x="1626" y="2786" color="blue" label_angle="266">
+                <pts>
+                    <pt x="1626" y="2830" />
+                    <pt x="1626" y="2742" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="inflow_rate">
+            <eqn>Pulse(Prozasin_Dosage*&#x0A;Bio_Prozasin / Volume_distriburion_of_Prozasin,720,24)</eqn>
+            <non_negative />
+            <units>mg/hr-l</units>
+            <display x="1423" y="2845" color="blue">
+                <pts>
+                    <pt x="1393" y="2845" />
+                    <pt x="1453" y="2845" />
+                </pts>
+            </display>
+        </flow>
+        <flow name="Dosage_Rate">
+            <eqn>PULSE(Atenolol_Dosage*&#x0A;Bioavailability/Volume_Distribution_of_Atenolol,720,24)</eqn>
+            <non_negative />
+            <units>milligrams/hr-l</units>
+            <display x="1190" y="2293" color="blue">
+                <pts>
+                    <pt x="1145" y="2293" />
+                    <pt x="1235" y="2293" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Ki_E_on_alpha2">
+            <eqn>31*(10^3)/(5.914*10^6)</eqn>
+            <units>mg/l</units>
+            <display x="2286" y="1533" color="blue" label_angle="266" />
+        </aux>
+        <aux name="Alpha_2_Receptor_Occupied_by_E">
+            <eqn>Ep*Common_factor_for_A2/Ki_E_on_alpha2</eqn>
+            <units>Unitless</units>
+            <display x="2344" y="1473" color="blue" />
+        </aux>
+        <aux name="KI_NE_on_alpha2">
+            <eqn>56*(10^3)/(5.914*10^6)</eqn>
+            <units>mg/l</units>
+            <display x="2135" y="1612" color="blue" label_angle="261" />
+        </aux>
+        <aux name="Common_factor_for_A2">
+            <eqn>1/(1+(Ep/Ki_E_on_alpha2)+(Nep/KI_NE_on_alpha2))</eqn>
+            <units>Unitless</units>
+            <display x="2176" y="1507" color="blue" />
+        </aux>
+        <aux name="Nep">
+            <eqn>Norepinephrine</eqn>
+            <units>mg/l</units>
+            <display x="2127" y="1827" color="blue" />
+        </aux>
+        <aux name="Ep">
+            <eqn>Epinephrine</eqn>
+            <units>mg/l</units>
+            <display x="2324" y="1676" color="blue" />
+        </aux>
+        <aux name="EC50_E_on_Alpha2">
+            <eqn>23*(10^3)/(5.454*10^6)</eqn>
+            <units>mg/l</units>
+            <display x="2076" y="1568" color="blue" />
+        </aux>
+        <aux name="Effect_of_E_on_alpha_2">
+            <eqn>(Alpha_2_Receptor_Occupied_by_E*Ki_E_on_alpha2/EC50_E_on_Alpha2)</eqn>
+            <units>Unitless</units>
+            <display x="2003" y="1528" color="blue" />
+        </aux>
+        <aux name="Effect_on_transformation_rate_of_Ne_to_E">
+            <eqn>Effect_of_E_on_alpha_2/reference_total_effect_on_alpha2</eqn>
+            <gf>
+                <xscale min="1" max="1.5" />
+                <yscale min="0.76" max="1" />
+                <ypts>1,0.98499999999999999,0.97099999999999997,0.95799999999999996,0.94499999999999995,0.93200000000000005,0.92000000000000004,0.90800000000000003,0.89700000000000002,0.88600000000000001,0.875,0.86499999999999999,0.85499999999999998,0.84499999999999997,0.83599999999999997,0.82699999999999996,0.81799999999999995,0.80900000000000005,0.80100000000000005,0.79300000000000004,0.78600000000000003,0.78000000000000003,0.77500000000000002,0.77100000000000002,0.76800000000000002,0.76600000000000001</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1983" y="1706" color="blue" />
+        </aux>
+        <aux name="reference_total_effect_on_alpha2">
+            <eqn>0.009034626</eqn>
+            <units>Unitless</units>
+            <display x="1855" y="1656" color="blue" />
+        </aux>
+        <aux name="Epinephrine_for_b2">
+            <eqn>Epinephrine</eqn>
+            <units>mg/l</units>
+            <display x="1712" y="3215" color="blue" />
+        </aux>
+        <aux name="Ki_of_Epinephrine_on_B2">
+            <eqn>745*(10^3)/((5.454)*(10^6))</eqn>
+            <units>mg/l</units>
+            <display x="1635" y="3180" color="blue" />
+        </aux>
+        <aux name="Common_factor_B2">
+            <eqn>1/((1+Epinephrine_for_b2/Ki_of_Epinephrine_on_B2) )</eqn>
+            <units>Unitless</units>
+            <display x="1580" y="3125" color="blue" />
+        </aux>
+        <aux name="Rec_Oc_E_on_beta_2">
+            <eqn>Epinephrine_for_b2*Common_factor_B2/Ki_of_Epinephrine_on_B2</eqn>
+            <units>Unitless</units>
+            <display x="1458" y="3123" color="blue" />
+        </aux>
+        <aux name="Eff_of_E_on_beta_2">
+            <eqn>Rec_Oc_E_on_beta_2*Ki_of_Epinephrine_on_B2/Ec50_of_E</eqn>
+            <units>Unitless</units>
+            <display x="1382" y="3100" color="blue" />
+        </aux>
+        <aux name="Ec50_of_E">
+            <eqn>15*(10^3)/((5.454)*(10^6))</eqn>
+            <units>mg/l</units>
+            <display x="1445" y="3218" color="blue" />
+        </aux>
+        <aux name="reference_total_effect_on_beta_2">
+            <eqn>0.014539742</eqn>
+            <units>Unitless</units>
+            <display x="1303" y="3186" color="blue" />
+        </aux>
+        <aux name="Effect_of_beta2_receptor_occupancy_on_arterioles_diameter">
+            <eqn>Eff_of_E_on_beta_2/reference_total_effect_on_beta_2</eqn>
+            <gf>
+                <xscale min="0.8" max="1" />
+                <yscale min="0.91" max="1" />
+                <ypts>0.91000000000000003,0.91300000000000003,0.91900000000000004,0.92800000000000005,0.93999999999999995,0.95499999999999996,0.96999999999999997,0.98199999999999998,0.99099999999999999,0.997,1</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="1169" y="3096" color="blue" />
+        </aux>
+        <stock name="ESV">
+            <eqn>40</eqn>
+            <inflow>adjustment_ratee</inflow>
+            <non_negative />
+            <units>milliliters</units>
+            <display x="386" y="2040" color="blue" />
+        </stock>
+        <flow name="adjustment_ratee">
+            <eqn>(3*Usage_of_heart*Effect_of_Contraction__on_Stroke_Volume*Effect_of_Afterload*Heart_Volume*(1-time_ratio_spent_in_diastole_to_total)&#x0A;/(3-time_ratio_spent_in_diastole_to_total) - ESV) / ADJ_TIMEE</eqn>
+            <units>ml/hr</units>
+            <display x="387" y="2094" color="blue">
+                <pts>
+                    <pt x="387" y="2131" />
+                    <pt x="387" y="2057" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="ADJ_TIMEE">
+            <eqn>1</eqn>
+            <units>hour</units>
+            <display x="304" y="2074" color="blue" />
+        </aux>
+        <stock name="EDV">
+            <eqn>120</eqn>
+            <inflow>ADJUSTMENT_RAE</inflow>
+            <non_negative />
+            <units>milliliters</units>
+            <display x="239" y="1930" color="blue" />
+        </stock>
+        <flow name="ADJUSTMENT_RAE">
+            <eqn>(3*Usage_of_heart*Heart_Volume*Effect_of_filling_time_on_Stroke_Volume&#x0A;/&#x0A;(3-time_ratio_spent_in_diastole_to_total)-EDV)/ADJ_TIME2</eqn>
+            <units>ml/hr</units>
+            <display x="244" y="1975" color="blue">
+                <pts>
+                    <pt x="244" y="2004" />
+                    <pt x="244" y="1947" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="ADJ_TIME2">
+            <eqn>3</eqn>
+            <units>hour</units>
+            <display x="308" y="1993" color="blue" />
+        </aux>
+        <stock name="Heart_Volume">
+            <eqn>2800/3</eqn>
+            <inflow>Return_rate</inflow>
+            <outflow>Distribution_rate</outflow>
+            <non_negative />
+            <units>milliliters</units>
+            <display x="616" y="1994" color="blue" label_angle="93" />
+        </stock>
+        <stock name="Body_Volume">
+            <eqn>4800</eqn>
+            <inflow>Distribution_rate</inflow>
+            <outflow>Return_rate</outflow>
+            <non_negative />
+            <units>milliliters</units>
+            <display x="855" y="2134" color="blue" />
+        </stock>
+        <flow name="Return_rate">
+            <eqn>Body_Volume*return_ratio_from_body_to_heart</eqn>
+            <non_negative />
+            <units>ml/hr</units>
+            <display x="717" y="2151" color="blue" label_side="top" label_angle="85">
+                <pts>
+                    <pt x="833" y="2151" />
+                    <pt x="601" y="2151" />
+                    <pt x="601" y="2011" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Reference_return_ratio_from_body_to_heart">
+            <eqn>1/60</eqn>
+            <units>1/hour</units>
+            <display x="1061" y="2142" color="blue" />
+        </aux>
+        <aux name="time_ratio_spent_in_diastole_to_total">
+            <eqn>2/3</eqn>
+            <units>Unitless</units>
+            <display x="268" y="2106" color="blue" />
+        </aux>
+        <aux name="return_ratio_from_body_to_heart">
+            <eqn>Reference_return_ratio_from_body_to_heart*Vr_Effect_on_return_ratio</eqn>
+            <units>1/hour</units>
+            <display x="994" y="2072" color="blue" />
+        </aux>
+        <aux name="LHSV">
+            <eqn>EDV-ESV</eqn>
+            <units>milliliters</units>
+            <display x="553" y="1936" color="blue" />
+        </aux>
+        <stock name="Venous_return">
+            <eqn>80</eqn>
+            <inflow>Flow_1</inflow>
+            <non_negative />
+            <units>ml/hour</units>
+            <display x="867" y="1891" color="blue" />
+        </stock>
+        <aux name="ADJ12">
+            <eqn>1</eqn>
+            <units>hours</units>
+            <display x="713" y="1874" color="blue" />
+        </aux>
+        <aux name="reference_VR">
+            <eqn>80</eqn>
+            <units>ml/hr</units>
+            <display x="937" y="1942" color="blue" />
+        </aux>
+        <aux name="Vr_Effect_on_return_ratio">
+            <eqn>Venous_return/reference_VR</eqn>
+            <gf>
+                <xscale min="0" max="2.5" />
+                <yscale min="0.2" max="2.3" />
+                <ypts>0.45000000000000001,0.46000000000000002,0.47999999999999998,0.51000000000000001,0.55000000000000004,0.59999999999999998,0.66000000000000003,0.72999999999999998,0.81000000000000005,0.90000000000000002,1,1.1000000000000001,1.1930000000000001,1.28,1.3600000000000001,1.4330000000000001,1.5,1.5600000000000001,1.613,1.6599999999999999,1.7,1.7330000000000001,1.76,1.78,1.7929999999999999,1.8</ypts>
+            </gf>
+            <units>Unitless</units>
+            <display x="912" y="2018" color="blue" />
+        </aux>
+        <flow name="Flow_1">
+            <eqn>(distribution_rate-Venous_return)/ADJ12</eqn>
+            <units>ml/hour-hr</units>
+            <display x="809" y="1892" color="blue">
+                <pts>
+                    <pt x="774" y="1892" />
+                    <pt x="845" y="1892" />
+                </pts>
+            </display>
+        </flow>
+        <aux name="Usage_of_heart">
+            <eqn>1/10</eqn>
+            <units>Unitless</units>
+            <display x="509" y="2064" color="blue" />
+        </aux>
+        <aux name="Adj_time">
+            <eqn>1</eqn>
+            <units>hour</units>
+            <display x="694" y="2062" color="blue" />
+        </aux>
+        <flow name="Distribution_rate">
+            <eqn>LHSV/Adj_time</eqn>
+            <non_negative />
+            <units>ml/hr</units>
+            <display x="754" y="1984" color="blue">
+                <pts>
+                    <pt x="638" y="1984" />
+                    <pt x="870" y="1984" />
+                    <pt x="870" y="2117" />
+                </pts>
+            </display>
+        </flow>
+        <display page_width="576" page_height="734" page_cols="5" page_rows="6" isee:show_values_on_hover="true" isee:converter_size="medium" isee:animate_flows="true" isee:animate_stocks="true" isee:animate_converters="true" scroll_x="1168" scroll_y="1008">
+            <connector x="990" y="2081" uid="0" color="#FF007F">
+                <from>return_ratio_from_body_to_heart</from>
+                <to>Return_rate</to>
+            </connector>
+            <connector x="364" y="2046" uid="1" color="#FF007F">
+                <from>ESV</from>
+                <to>adjustment_ratee</to>
+            </connector>
+            <connector x="1615" y="2657" uid="2" color="#FF007F">
+                <from>E</from>
+                <to>Common_factor_for_A1</to>
+            </connector>
+            <connector x="1169" y="417" uid="3" color="#FF007F">
+                <from>dissociation_ratio</from>
+                <to>dissociation_rate</to>
+            </connector>
+            <connector x="1400" y="408" uid="4" color="#FF007F">
+                <from>normal_arrangement_ratio</from>
+                <to>arrangement_ratio</to>
+            </connector>
+            <connector x="924" y="687" uid="5" color="#FF007F">
+                <from>reference_Velocity_of_Blood</from>
+                <to>Effect_of_Velocity_of_blood_saatlik_mi_kontrol_et</to>
+            </connector>
+            <connector x="1651" y="906" uid="6" color="#FF007F">
+                <from>Nox2_informational_delay</from>
+                <to>Smoothing_Rate3</to>
+            </connector>
+            <connector x="827" y="1625" uid="7" color="#FF007F">
+                <from>ATBP</from>
+                <to>change_rate_Bpi</to>
+            </connector>
+            <connector x="259" y="2106" uid="8" color="#FF007F">
+                <from>time_ratio_spent_in_diastole_to_total</from>
+                <to>ADJUSTMENT_RAE</to>
+            </connector>
+            <connector x="1424" y="2080" uid="9" color="#FF007F">
+                <from>KD_of_atenolol</from>
+                <to>Common_Factor_For_Beta_1</to>
+            </connector>
+            <connector x="1726" y="2935" uid="10" color="#FF007F">
+                <from>Volume_distriburion_of_Prozasin</from>
+                <to>El_C_prozasin</to>
+            </connector>
+            <connector x="1014" y="247" uid="11" color="#FF007F">
+                <from>implied_o2_saturation_arterial</from>
+                <to>Respiratory_Rate</to>
+            </connector>
+            <connector x="1279" y="2589" uid="12" color="#FF007F">
+                <from>Ki_Pro_on_alpha1</from>
+                <to>Common_factor_for_A1</to>
+            </connector>
+            <connector x="1017" y="1436" uid="13" color="#FF007F">
+                <from>Ratio_of_BPI_to_BOP</from>
+                <to>Effect_of_Bp_on_SNA</to>
+            </connector>
+            <connector x="503" y="2060" uid="14" color="#FF007F">
+                <from>Usage_of_heart</from>
+                <to>ADJUSTMENT_RAE</to>
+            </connector>
+            <connector x="1184" y="2022" uid="15" color="#FF007F">
+                <from>EC50_E_on_ARB1</from>
+                <to>E_effect_on_beta_1</to>
+            </connector>
+            <connector x="1735" y="1927" uid="16" color="#FF007F">
+                <from>Norepinephrine</from>
+                <to>Nep</to>
+            </connector>
+            <connector x="1508" y="2232" uid="17" color="#FF007F">
+                <from>Plasma_Protein_Binding_Ratio</from>
+                <to>Desired_Conc_Bound_Plas_Prot</to>
+            </connector>
+            <connector x="1181" y="296" uid="18" color="#FF007F">
+                <from>effect_of_ratio_OSAP_to_ROSAP_on_rate_of_dissociation_ratio</from>
+                <to>dissociation_ratio</to>
+            </connector>
+            <connector x="1495" y="1972" uid="19" color="#FF007F">
+                <from>Common_Factor_For_Beta_1</from>
+                <to>beta_1_receptor_ratio_occupied_by_NE</to>
+            </connector>
+            <connector x="1247" y="919" uid="20" color="#FF007F">
+                <from>ROS_denge_lazim_unutma</from>
+                <to>Smoothing_Rate1</to>
+            </connector>
+            <connector x="765" y="2347" uid="21" color="#FF007F">
+                <from>Diameter_of_arterioles</from>
+                <to>Eff_of_diameter_on_SVR</to>
+            </connector>
+            <connector x="1172" y="1922" uid="22" color="#FF007F">
+                <from>Total_Effect_on_Beta_1</from>
+                <to>Effect_of_Total_Effect_on_Beta_1_on_Heart_Rate</to>
+            </connector>
+            <connector x="1095" y="1529" uid="23" color="#FF007F">
+                <from>reference_for_Sna</from>
+                <to>Implied_SNA</to>
+            </connector>
+            <connector x="1475" y="2831" uid="24" color="#FF007F">
+                <from>Conc_of_Prozasin</from>
+                <to>Absorption_Rate_of_Pro</to>
+            </connector>
+            <connector x="1001" y="1756" uid="25" color="#FF007F">
+                <from>Effect_of_filling_time_on_Stroke_Volume</from>
+                <to>ADJUSTMENT_RAE</to>
+            </connector>
+            <connector x="666" y="810" uid="26" color="#FF007F">
+                <from>converter_L_to_cm3</from>
+                <to>Velocity_of_blood</to>
+            </connector>
+            <connector x="1533" y="559" uid="27" color="#FF007F">
+                <from>total_nox2_weight</from>
+                <to>Arrangement_Rate</to>
+            </connector>
+            <connector x="1556" y="1626" uid="28" color="#FF007F">
+                <from>Clear_Rate_of_Epinephrine_in_Urine</from>
+                <to>Net_change_E_loss1</to>
+            </connector>
+            <connector x="1588" y="2044" uid="29" color="#FF007F">
+                <from>Ki_for_beta1_of_epinephrine</from>
+                <to>Common_Factor_For_Beta_1</to>
+            </connector>
+            <connector x="685" y="1744" uid="30" color="#FF007F">
+                <from>implied_Bp</from>
+                <to>change_rate_Bpi</to>
+            </connector>
+            <connector x="1626" y="1172" uid="31" color="#FF007F">
+                <from>ETNL</from>
+                <to>Net_change_Ne_loss</to>
+            </connector>
+            <connector x="1710" y="3207" uid="32" color="#FF007F">
+                <from>Epinephrine_for_b2</from>
+                <to>Common_factor_B2</to>
+            </connector>
+            <connector x="1624" y="1719" uid="33" color="#FF007F">
+                <from>ETEL</from>
+                <to>Net_change_E_loss1</to>
+            </connector>
+            <connector x="1320" y="1060" uid="34" color="#FF007F">
+                <from>reference_Ros</from>
+                <to>Effect_of_Ros_on_sympathetic_impulse</to>
+            </connector>
+            <connector x="2067" y="1568" uid="35" color="#FF007F">
+                <from>EC50_E_on_Alpha2</from>
+                <to>Effect_of_E_on_alpha_2</to>
+            </connector>
+            <connector x="1222" y="1960" uid="36" color="#FF007F">
+                <from>E_effect_on_beta_1</from>
+                <to>Total_Effect_on_Beta_1</to>
+            </connector>
+            <connector x="1731" y="1928" uid="37" color="#FF007F">
+                <from>Norepinephrine</from>
+                <to>Ne</to>
+            </connector>
+            <connector x="1420" y="1934" uid="38" color="#FF007F">
+                <from>ki_for_beta_1_norepinephrine</from>
+                <to>beta_1_receptor_ratio_occupied_by_NE</to>
+            </connector>
+            <connector x="2026" y="690" uid="39" color="#FF007F">
+                <from>disc</from>
+                <to>change_in_oxidation_fr</to>
+            </connector>
+            <connector x="1084" y="929" uid="40" color="#FF007F">
+                <from>Oxygen_usage_store_in_the_cell</from>
+                <to>oxidation_rate</to>
+            </connector>
+            <connector x="2007" y="1538" uid="41" color="#FF007F">
+                <from>Effect_of_E_on_alpha_2</from>
+                <to>Effect_on_transformation_rate_of_Ne_to_E</to>
+            </connector>
+            <connector x="1361" y="1392" uid="42" color="#FF007F">
+                <from>Balance_Time</from>
+                <to>Balance_Rate</to>
+            </connector>
+            <connector x="709" y="1814" uid="43" color="#FF007F">
+                <from>Average_Stroke_Volume</from>
+                <to>Cardiac_Output</to>
+            </connector>
+            <connector x="1650" y="2584" uid="44" color="#FF007F">
+                <from>Ne</from>
+                <to>Common_factor_for_A1</to>
+            </connector>
+            <connector x="1383" y="2471" uid="45" color="#FF007F">
+                <from>Volume_Distribution_of_Atenolol</from>
+                <to>Elimination_Constant</to>
+            </connector>
+            <connector x="2015" y="623" uid="46" color="#FF007F">
+                <from>pot_oxidation_fraction</from>
+                <to>disc</to>
+            </connector>
+            <connector x="1454" y="445" uid="47" color="#FF007F">
+                <from>arrangement_ratio</from>
+                <to>Arrangement_Rate</to>
+            </connector>
+            <connector x="1265" y="2795" uid="48" color="#FF007F">
+                <from>reference_total_effect_on_alpha_1</from>
+                <to>Effect_of_total_effect_on_alpha1_on_diameter</to>
+            </connector>
+            <connector x="1263" y="953" uid="49" color="#FF007F">
+                <from>ROS_denge_lazim_unutma</from>
+                <to>Effect_of_Ros_on_sympathetic_impulse</to>
+            </connector>
+            <connector x="1404" y="2309" uid="50" color="#FF007F">
+                <from>Free_Aten_Conc</from>
+                <to>Desired_Conc_Bound_Plas_Prot</to>
+            </connector>
+            <connector x="1434" y="1945" uid="51" color="#FF007F">
+                <from>ki_for_beta_1_norepinephrine</from>
+                <to>Common_Factor_For_Beta_1</to>
+            </connector>
+            <connector x="1400" y="605" uid="52" color="#FF007F">
+                <from>Nox2_normal_weight</from>
+                <to>Effect_of_Nox2_on_Transformation_ratio</to>
+            </connector>
+            <connector x="1198" y="59" uid="53" color="#FF007F">
+                <from>duration_of_Ahi</from>
+                <to>percentage_of_breathing</to>
+            </connector>
+            <connector x="2141" y="1606" uid="54" color="#FF007F">
+                <from>KI_NE_on_alpha2</from>
+                <to>Common_factor_for_A2</to>
+            </connector>
+            <connector x="1120" y="1595" uid="55" color="#FF007F">
+                <from>Heart_Rate</from>
+                <to>Cardiac_Output</to>
+            </connector>
+            <connector x="1398" y="2875" uid="56" color="#FF007F">
+                <from>Bio_Prozasin</from>
+                <to>inflow_rate</to>
+            </connector>
+            <connector x="1838" y="571" uid="57" color="#FF007F">
+                <from>ORYR1</from>
+                <to>Effect_of_RYR1</to>
+            </connector>
+            <connector x="712" y="2250" uid="58" color="#FF007F">
+                <from>Desired_SVR</from>
+                <to>implied_Bp</to>
+            </connector>
+            <connector x="943" y="883" uid="59" color="#FF007F">
+                <from>Adjustment_time_oxygen</from>
+                <to>oxygen_replenishment_rate</to>
+            </connector>
+            <connector x="1334" y="1841" uid="60" color="#FF007F">
+                <from>EC50_NE_for_beta_1</from>
+                <to>NE_effect_on_beta_1</to>
+            </connector>
+            <connector x="311" y="2080" uid="61" color="#FF007F">
+                <from>ADJ_TIMEE</from>
+                <to>adjustment_ratee</to>
+            </connector>
+            <connector x="1333" y="483" uid="62" color="#FF007F">
+                <from>Nox2_weight_in_action_site</from>
+                <to>ratio_of_nox2_in_action_site_to_total</to>
+            </connector>
+            <connector x="859" y="1908" uid="63" color="#FF007F">
+                <from>Venous_return</from>
+                <to>Vr_Effect_on_return_ratio</to>
+            </connector>
+            <connector x="1084" y="124" uid="64" color="#FF007F">
+                <from>percentage_of_breathing</from>
+                <to>implied_percentage_of_breathing</to>
+            </connector>
+            <connector x="1173" y="866" uid="65" color="#FF007F">
+                <from>Transformation_Ratio</from>
+                <to>oxidation_rate</to>
+            </connector>
+            <connector x="1107" y="1762" uid="66" color="#FF007F">
+                <from>reference_heart_rate</from>
+                <to>Effect_of_filling_time_on_Stroke_Volume</to>
+            </connector>
+            <connector x="1062" y="29" uid="67" color="#FF007F">
+                <from>Effect_of_ref_Ahi_distribution</from>
+                <to>Ahi_distribution</to>
+            </connector>
+            <connector x="1064" y="339" uid="68" color="#FF007F">
+                <from>o2_saturation_arterial_percentage_Ayar_lazim_unutma</from>
+                <to>effect_of_ratio_OSAP_to_ROSAP_on_rate_of_dissociation_ratio</to>
+            </connector>
+            <connector x="1204" y="1789" uid="69" color="#FF007F">
+                <from>Effect_of_Total_Effect_on_Beta_1_on_Heart_Rate</from>
+                <to>implied_heart_rate_stocklu</to>
+            </connector>
+            <connector x="1637" y="1389" uid="70" color="#FF007F">
+                <from>Clearance_rate</from>
+                <to>Net_change_Ne_loss</to>
+            </connector>
+            <connector x="1166" y="793" uid="71" color="#FF007F">
+                <from>reference_Transformation_ratio</from>
+                <to>Transformation_Ratio</to>
+            </connector>
+            <connector x="2295" y="1531" uid="72" color="#FF007F">
+                <from>Ki_E_on_alpha2</from>
+                <to>Alpha_2_Receptor_Occupied_by_E</to>
+            </connector>
+            <connector x="948" y="101" uid="73" color="#FF007F">
+                <from>ref_Ahi_index</from>
+                <to>ratio_of_AI_to_Ref_AI</to>
+            </connector>
+            <connector x="1376" y="3095" uid="74" color="#FF007F">
+                <from>Eff_of_E_on_beta_2</from>
+                <to>Effect_of_beta2_receptor_occupancy_on_arterioles_diameter</to>
+            </connector>
+            <connector x="2278" y="1530" uid="75" color="#FF007F">
+                <from>Ki_E_on_alpha2</from>
+                <to>Common_factor_for_A2</to>
+            </connector>
+            <connector x="1399" y="2594" uid="76" color="#FF007F">
+                <from>Common_factor_for_A1</from>
+                <to>Alpha_1_Receptor_Occupied_by_NE</to>
+            </connector>
+            <connector x="1157" y="1021" uid="77" color="#FF007F">
+                <from>Expected_Clearance</from>
+                <to>oxygen_replenishment_rate</to>
+            </connector>
+            <connector x="1393" y="846" uid="78" color="#FF007F">
+                <from>ref_clearance_ratio</from>
+                <to>Clearance_ratio_onemli</to>
+            </connector>
+            <connector x="1981" y="1700" uid="79" color="#FF007F">
+                <from>Effect_on_transformation_rate_of_Ne_to_E</from>
+                <to>transformation_rate_NE</to>
+            </connector>
+            <connector x="1758" y="2776" uid="80" color="#FF007F">
+                <from>PPBRP</from>
+                <to>Desired_Conc</to>
+            </connector>
+            <connector x="1452" y="3117" uid="81" color="#FF007F">
+                <from>Rec_Oc_E_on_beta_2</from>
+                <to>Eff_of_E_on_beta_2</to>
+            </connector>
+            <connector x="1574" y="2333" uid="82" color="#FF007F">
+                <from>Desired_Conc_Bound_Plas_Prot</from>
+                <to>Bound_Rate_to_Plazma_Proteins</to>
+            </connector>
+            <connector x="1347" y="874" uid="83" color="#FF007F">
+                <from>Clearance_ratio_onemli</from>
+                <to>Clearance</to>
+            </connector>
+            <connector x="1860" y="648" uid="84" color="#FF007F">
+                <from>effect_on_oxidation_fraction</from>
+                <to>desired_trap_fr</to>
+            </connector>
+            <connector x="1397" y="2782" uid="85" color="#FF007F">
+                <from>Prozasin_Dosage</from>
+                <to>inflow_rate</to>
+            </connector>
+            <connector x="719" y="1869" uid="86" color="#FF007F">
+                <from>ADJ12</from>
+                <to>Flow_1</to>
+            </connector>
+            <connector x="1754" y="453" uid="87" color="#FF007F">
+                <from>Oxidased_Ryr1</from>
+                <to>ORYR1</to>
+            </connector>
+            <connector x="1829" y="705" uid="88" color="#FF007F">
+                <from>normal_trap_fr</from>
+                <to>desired_trap_fr</to>
+            </connector>
+            <connector x="730" y="1602" uid="89" color="#FF007F">
+                <from>BPI</from>
+                <to>change_rate_Bpi</to>
+            </connector>
+            <connector x="1437" y="3213" uid="90" color="#FF007F">
+                <from>Ec50_of_E</from>
+                <to>Eff_of_E_on_beta_2</to>
+            </connector>
+            <connector x="636" y="1790" uid="91" color="#FF007F">
+                <from>Adjustment_Time_2</from>
+                <to>Adjustment_rate</to>
+            </connector>
+            <connector x="1714" y="3205" uid="92" color="#FF007F">
+                <from>Epinephrine_for_b2</from>
+                <to>Rec_Oc_E_on_beta_2</to>
+            </connector>
+            <connector x="1793" y="287" uid="93" color="#FF007F">
+                <from>destruction_ratio</from>
+                <to>oxidased_ryr1_destr_rate</to>
+            </connector>
+            <connector x="1629" y="3174" uid="94" color="#FF007F">
+                <from>Ki_of_Epinephrine_on_B2</from>
+                <to>Rec_Oc_E_on_beta_2</to>
+            </connector>
+            <connector x="713" y="2255" uid="95" color="#FF007F">
+                <from>Desired_SVR</from>
+                <to>Effect_of_Afterload</to>
+            </connector>
+            <connector x="1358" y="1273" uid="96" color="#FF007F">
+                <from>desired_epinephrine</from>
+                <to>Spillover_Rate</to>
+            </connector>
+            <connector x="1458" y="2377" uid="97" color="#FF007F">
+                <from>Elimination_Constant</from>
+                <to>Elimination_Rate</to>
+            </connector>
+            <connector x="261" y="1917" uid="98" color="#FF007F">
+                <from>EDV</from>
+                <to>LHSV</to>
+            </connector>
+            <connector x="1122" y="1081" uid="99" color="#FF007F">
+                <from>Adjustment_Time_1</from>
+                <to>Net_exchange_rate</to>
+            </connector>
+            <connector x="1672" y="1339" uid="100" color="#FF007F">
+                <from>CRN</from>
+                <to>Clearance_rate</to>
+            </connector>
+            <connector x="1598" y="1308" uid="101" color="#FF007F">
+                <from>ATN</from>
+                <to>Spillover_Rate</to>
+            </connector>
+            <connector x="1119" y="1876" uid="102" color="#FF007F">
+                <from>Effect_of_Contraction__on_Stroke_Volume</from>
+                <to>adjustment_ratee</to>
+            </connector>
+            <connector x="1459" y="1622" uid="103" color="#FF007F">
+                <from>CRE</from>
+                <to>Clear_Rate_of_Epinephrine_in_Urine</to>
+            </connector>
+            <connector x="1124" y="1596" uid="104" color="#FF007F">
+                <from>Heart_Rate</from>
+                <to>Modification_rate</to>
+            </connector>
+            <connector x="737" y="2467" uid="105" color="#FF007F">
+                <from>reference_diameter</from>
+                <to>Eff_of_diameter_on_SVR</to>
+            </connector>
+            <connector x="1513" y="1399" uid="106" color="#FF007F">
+                <from>NorAdr_In_plasma</from>
+                <to>Transformation_Rate</to>
+            </connector>
+            <connector x="1101" y="710" uid="107" color="#FF007F">
+                <from>capacity_of_oxygen_in_cell</from>
+                <to>Discrepancy</to>
+            </connector>
+            <connector x="1506" y="393" uid="108" color="#FF007F">
+                <from>ratio_of_nox2_in_action_site_to_total</from>
+                <to>effect_of_ratio_on_arrangement_ratio</to>
+            </connector>
+            <connector x="597" y="2269" uid="109" color="#FF007F">
+                <from>Effect_of_Afterload</from>
+                <to>adjustment_ratee</to>
+            </connector>
+            <connector x="1307" y="1922" uid="110" color="#FF007F">
+                <from>beta_1_receptor_ratio_occupied_by_NE</from>
+                <to>NE_effect_on_beta_1</to>
+            </connector>
+            <connector x="1564" y="1561" uid="111" color="#FF007F">
+                <from>Epinephrine_in_Plasma</from>
+                <to>Clear_Rate_of_Epinephrine_in_Urine</to>
+            </connector>
+            <connector x="1416" y="2082" uid="112" color="#FF007F">
+                <from>KD_of_atenolol</from>
+                <to>Beta_1_Receptor_ratio_Occupied_by_atenolol</to>
+            </connector>
+            <connector x="845" y="1874" uid="113" color="#FF007F">
+                <from>Venous_return</from>
+                <to>Flow_1</to>
+            </connector>
+            <connector x="1057" y="1704" uid="114" color="red">
+                <from>implied_heart_rate_stocklu</from>
+                <to>Modification_rate</to>
+            </connector>
+            <connector x="563" y="1933" uid="115" color="#FF007F">
+                <from>LHSV</from>
+                <to>Distribution_rate</to>
+            </connector>
+            <connector x="596" y="1993" uid="116" color="#FF007F">
+                <from>Heart_Volume</from>
+                <to>adjustment_ratee</to>
+            </connector>
+            <connector x="916" y="395" uid="117" color="#FF007F">
+                <from>respiratory_adjustment_time</from>
+                <to>Respiratory_Rate</to>
+            </connector>
+            <connector x="1725" y="1915" uid="118" color="#FF007F">
+                <from>Norepinephrine</from>
+                <to>NE_IN_P</to>
+            </connector>
+            <connector x="2340" y="1464" uid="119" color="#FF007F">
+                <from>Alpha_2_Receptor_Occupied_by_E</from>
+                <to>Effect_of_E_on_alpha_2</to>
+            </connector>
+            <connector x="1301" y="935" uid="120" color="#FF007F">
+                <from>Clearance</from>
+                <to>Net_exchange_rate</to>
+            </connector>
+            <connector x="1683" y="1655" uid="121" color="#FF007F">
+                <from>Expected_Loss_in_E</from>
+                <to>Spillover_Rate</to>
+            </connector>
+            <connector x="1642" y="2736" uid="122" color="#FF007F">
+                <from>Conc_Bound_to_Plasma</from>
+                <to>Bound_rate_to_Plasma_Proteins</to>
+            </connector>
+            <connector x="741" y="2347" uid="123" color="#FF007F">
+                <from>Diameter_of_arterioles</from>
+                <to>Net_change_in_Diameter</to>
+            </connector>
+            <connector x="760" y="2278" uid="124" color="#FF007F">
+                <from>reference_Svr</from>
+                <to>Effect_of_Afterload</to>
+            </connector>
+            <connector x="1412" y="2274" uid="125" color="#FF007F">
+                <from>Free_Aten_Conc</from>
+                <to>Common_Factor_For_Beta_1</to>
+            </connector>
+            <connector x="720" y="2469" uid="126" color="#FF007F">
+                <from>reference_diameter</from>
+                <to>Desired_diameter</to>
+            </connector>
+            <connector x="1301" y="1498" uid="127" color="#FF007F">
+                <from>Average_SNA</from>
+                <to>desired_epinephrine</to>
+            </connector>
+            <connector x="993" y="162" uid="128" color="#FF007F">
+                <from>implied_percentage_of_breathing</from>
+                <to>implied_o2_saturation_arterial</to>
+            </connector>
+            <connector x="1127" y="76" uid="129" color="#FF007F">
+                <from>Ahi_distribution</from>
+                <to>percentage_of_breathing</to>
+            </connector>
+            <connector x="745" y="1580" uid="130" color="#FF007F">
+                <from>BPI</from>
+                <to>Discrepancy_between_operation_point_and_BP</to>
+            </connector>
+            <connector x="1657" y="890" uid="131" color="#FF007F">
+                <from>Nox2_informational_delay</from>
+                <to>Smoothing_Rate1</to>
+            </connector>
+            <connector x="1927" y="680" uid="132" color="#FF007F">
+                <from>desired_trap_fr</from>
+                <to>disc</to>
+            </connector>
+            <connector x="1053" y="1301" uid="133" color="#FF007F">
+                <from>Operation_point_of_Baroreceptor</from>
+                <to>Ratio_of_BPI_to_BOP</to>
+            </connector>
+            <connector x="774" y="1599" uid="134" color="#FF007F">
+                <from>BPI</from>
+                <to>Ratio_of_BPI_to_BOP</to>
+            </connector>
+            <connector x="386" y="2023" uid="135" color="#FF007F">
+                <from>ESV</from>
+                <to>LHSV</to>
+            </connector>
+            <connector x="1035" y="762" uid="136" color="#FF007F">
+                <from>Implied_Oxygen_in_the_cell</from>
+                <to>Effect_of_implied_oxygen_in_the_cell</to>
+            </connector>
+            <connector x="556" y="1929" uid="137" color="#FF007F">
+                <from>LHSV</from>
+                <to>Adjustment_rate</to>
+            </connector>
+            <connector x="1601" y="698" uid="138" color="#FF007F">
+                <from>Effect_of_ROS_ratio</from>
+                <to>oxidation_rate_1</to>
+            </connector>
+            <connector x="1478" y="654" uid="139" color="#FF007F">
+                <from>Normal_ROS</from>
+                <to>Effect_of_ROS_ratio</to>
+            </connector>
+            <connector x="1049" y="808" uid="140" color="#FF007F">
+                <from>Effect_of_implied_oxygen_in_the_cell</from>
+                <to>Discrepancy</to>
+            </connector>
+            <connector x="1109" y="199" uid="141" color="#FF007F">
+                <from>reference_o2_arterial_saturation_percentage</from>
+                <to>implied_o2_saturation_arterial</to>
+            </connector>
+            <connector x="1549" y="1373" uid="142" color="#FF007F">
+                <from>NorAdr_In_plasma</from>
+                <to>Clearance_rate</to>
+            </connector>
+            <connector x="1240" y="1471" uid="143" color="#FF007F">
+                <from>Implied_SNA</from>
+                <to>Balance_Rate</to>
+            </connector>
+            <connector x="1515" y="2905" uid="144" color="#FF007F">
+                <from>Abs_ratio_of_Pro</from>
+                <to>Absorption_Rate_of_Pro</to>
+            </connector>
+            <connector x="1106" y="2794" uid="145" color="#FF007F">
+                <from>Effect_of_total_effect_on_alpha1_on_diameter</from>
+                <to>Desired_diameter</to>
+            </connector>
+            <connector x="1546" y="1860" uid="146" color="#FF007F">
+                <from>NE_IN_P</from>
+                <to>beta_1_receptor_ratio_occupied_by_NE</to>
+            </connector>
+            <connector x="1649" y="1497" uid="147" color="#FF007F">
+                <from>transformation_rate_NE</from>
+                <to>Transformation_Rate</to>
+            </connector>
+            <connector x="1183" y="2665" uid="148" color="#FF007F">
+                <from>Eff_of_Ne_on_Alpha1</from>
+                <to>Effect_of_total_effect_on_alpha1_on_diameter</to>
+            </connector>
+            <connector x="2016" y="622" uid="149" color="#FF007F">
+                <from>pot_oxidation_fraction</from>
+                <to>oxidation_rate_1</to>
+            </connector>
+            <connector x="1369" y="2297" uid="150" color="#FF007F">
+                <from>Free_Aten_Conc</from>
+                <to>Elimination_Rate</to>
+            </connector>
+            <connector x="962" y="727" uid="151" color="#FF007F">
+                <from>Reference_oxygen_in_the_cell</from>
+                <to>Implied_Oxygen_in_the_cell</to>
+            </connector>
+            <connector x="1258" y="952" uid="152" color="#FF007F">
+                <from>ROS_denge_lazim_unutma</from>
+                <to>Effect_on_its_clearance</to>
+            </connector>
+            <connector x="1461" y="2429" uid="153" color="#FF007F">
+                <from>Clearence_Of_Atenolol</from>
+                <to>Elimination_Constant</to>
+            </connector>
+            <connector x="1716" y="1246" uid="154" color="#FF007F">
+                <from>Expected_Loss_in_Ne</from>
+                <to>Spillover_Rate</to>
+            </connector>
+            <connector x="1775" y="1578" uid="155" color="#FF007F">
+                <from>reference_transformation_rate</from>
+                <to>transformation_rate_NE</to>
+            </connector>
+            <connector x="939" y="1950" uid="156" color="#FF007F">
+                <from>reference_VR</from>
+                <to>Vr_Effect_on_return_ratio</to>
+            </connector>
+            <connector x="1726" y="2740" uid="157" color="#FF007F">
+                <from>Desired_Conc</from>
+                <to>Bound_rate_to_Plasma_Proteins</to>
+            </connector>
+            <connector x="1877" y="442" uid="158" color="#FF007F">
+                <from>Ryr1</from>
+                <to>Ryr1_destruction_rate</to>
+            </connector>
+            <connector x="1264" y="576" uid="159" color="#FF007F">
+                <from>Effect_of_Nox2_on_Transformation_ratio</from>
+                <to>Transformation_Ratio</to>
+            </connector>
+            <connector x="1787" y="545" uid="160" color="#FF007F">
+                <from>normal_ORYR1</from>
+                <to>ORYR1</to>
+            </connector>
+            <connector x="300" y="1998" uid="161" color="#FF007F">
+                <from>ADJ_TIME2</from>
+                <to>ADJUSTMENT_RAE</to>
+            </connector>
+            <connector x="1500" y="891" uid="162" color="#FF007F">
+                <from>Second_smoothing</from>
+                <to>Smoothing_Rate2</to>
+            </connector>
+            <connector x="1529" y="2624" uid="163" color="#FF007F">
+                <from>Ki_NE_on_Alpha_1</from>
+                <to>Common_factor_for_A1</to>
+            </connector>
+            <connector x="1027" y="346" uid="164" color="#FF007F">
+                <from>o2_saturation_arterial_percentage_Ayar_lazim_unutma</from>
+                <to>Respiratory_Rate</to>
+            </connector>
+            <connector x="1637" y="3171" uid="165" color="#FF007F">
+                <from>Ki_of_Epinephrine_on_B2</from>
+                <to>Common_factor_B2</to>
+            </connector>
+            <connector x="217" y="1934" uid="166" color="#FF007F">
+                <from>EDV</from>
+                <to>ADJUSTMENT_RAE</to>
+            </connector>
+            <connector x="954" y="506" uid="167" color="#FF007F">
+                <from>Number_of_capillaries</from>
+                <to>total_cross_sectional_area</to>
+            </connector>
+            <connector x="1345" y="1517" uid="168" color="#FF007F">
+                <from>Average_SNA</from>
+                <to>Balance_Rate</to>
+            </connector>
+            <connector x="2321" y="1668" uid="169" color="#FF007F">
+                <from>Ep</from>
+                <to>Common_factor_for_A2</to>
+            </connector>
+            <connector x="1312" y="2347" uid="170" color="#FF007F">
+                <from>Abs_R_of_atenolol</from>
+                <to>Absorption_Rate</to>
+            </connector>
+            <connector x="1555" y="1406" uid="171" color="#FF007F">
+                <from>NorAdr_In_plasma</from>
+                <to>Norepinephrine</to>
+            </connector>
+            <connector x="1332" y="2639" uid="172" color="#FF007F">
+                <from>KI_E_on_alpha1</from>
+                <to>Common_factor_for_A1</to>
+            </connector>
+            <connector x="276" y="2111" uid="173" color="#FF007F">
+                <from>time_ratio_spent_in_diastole_to_total</from>
+                <to>adjustment_ratee</to>
+            </connector>
+            <connector x="1522" y="915" uid="174" color="#FF007F">
+                <from>Second_smoothing</from>
+                <to>Smoothing_Rate3</to>
+            </connector>
+            <connector x="1475" y="980" uid="175" color="#FF007F">
+                <from>Average_ROS_on_receptor_site</from>
+                <to>Smoothing_Rate3</to>
+            </connector>
+            <connector x="1366" y="2475" uid="176" color="#FF007F">
+                <from>Volume_Distribution_of_Atenolol</from>
+                <to>Dosage_Rate</to>
+            </connector>
+            <connector x="1650" y="895" uid="177" color="#FF007F">
+                <from>Nox2_informational_delay</from>
+                <to>Smoothing_Rate2</to>
+            </connector>
+            <connector x="1084" y="924" uid="178" color="#FF007F">
+                <from>Oxygen_usage_store_in_the_cell</from>
+                <to>Discrepancy</to>
+            </connector>
+            <connector x="1027" y="879" uid="179" color="#FF007F">
+                <from>Discrepancy</from>
+                <to>oxygen_replenishment_rate</to>
+            </connector>
+            <connector x="592" y="1979" uid="180" color="#FF007F">
+                <from>Heart_Volume</from>
+                <to>ADJUSTMENT_RAE</to>
+            </connector>
+            <connector x="873" y="632" uid="181" color="#FF007F">
+                <from>Velocity_of_blood</from>
+                <to>Effect_of_Velocity_of_blood_saatlik_mi_kontrol_et</to>
+            </connector>
+            <connector x="1161" y="3094" uid="182" color="#FF007F">
+                <from>Effect_of_beta2_receptor_occupancy_on_arterioles_diameter</from>
+                <to>Desired_diameter</to>
+            </connector>
+            <connector x="1183" y="1039" uid="183" color="#FF007F">
+                <from>Expected_Clearance</from>
+                <to>Net_exchange_rate</to>
+            </connector>
+            <connector x="1050" y="1719" uid="184" color="#FF007F">
+                <from>implied_heart_rate_stocklu</from>
+                <to>Effect_of_filling_time_on_Stroke_Volume</to>
+            </connector>
+            <connector x="1538" y="835" uid="185" color="#FF007F">
+                <from>First_smoothing</from>
+                <to>Smoothing_Rate2</to>
+            </connector>
+            <connector x="1731" y="1853" uid="186" color="#FF007F">
+                <from>Epinephrine</from>
+                <to>E</to>
+            </connector>
+            <connector x="1711" y="451" uid="187" color="#FF007F">
+                <from>Oxidased_Ryr1</from>
+                <to>oxidased_ryr1_destr_rate</to>
+            </connector>
+            <connector x="1301" y="1798" uid="188" color="#FF007F">
+                <from>ref_total_effect_on_beta_1</from>
+                <to>Effect_of_Contraction__on_Stroke_Volume</to>
+            </connector>
+            <connector x="853" y="2314" uid="189" color="red">
+                <from>Eff_of_diameter_on_SVR</from>
+                <to>Desired_SVR</to>
+            </connector>
+            <connector x="1596" y="2061" uid="190" color="#FF007F">
+                <from>Ki_for_beta1_of_epinephrine</from>
+                <to>Beta_1_receptor_ratio_occupied_by_epinephrine</to>
+            </connector>
+            <connector x="1245" y="919" uid="191" color="#FF007F">
+                <from>ROS_denge_lazim_unutma</from>
+                <to>Clearance</to>
+            </connector>
+            <connector x="1809" y="287" uid="192" color="#FF007F">
+                <from>destruction_ratio</from>
+                <to>Ryr1_destruction_rate</to>
+            </connector>
+            <connector x="768" y="783" uid="193" color="#FF007F">
+                <from>Effect_of_F&amp;L_on_oxygen</from>
+                <to>Implied_Oxygen_in_the_cell</to>
+            </connector>
+            <connector x="503" y="2071" uid="194" color="#FF007F">
+                <from>Usage_of_heart</from>
+                <to>adjustment_ratee</to>
+            </connector>
+            <connector x="1196" y="2195" uid="195" color="#FF007F">
+                <from>Atenolol_Dosage</from>
+                <to>Dosage_Rate</to>
+            </connector>
+            <connector x="1861" y="1663" uid="196" color="#FF007F">
+                <from>reference_total_effect_on_alpha2</from>
+                <to>Effect_on_transformation_rate_of_Ne_to_E</to>
+            </connector>
+            <connector x="1496" y="1012" uid="197" color="#FF007F">
+                <from>Average_ROS_on_receptor_site</from>
+                <to>Effect_of_ROS_ratio</to>
+            </connector>
+            <connector x="735" y="2362" uid="198" color="#FF007F">
+                <from>Diameter_of_arterioles</from>
+                <to>Unit_Cross_Sectional_Area</to>
+            </connector>
+            <connector x="976" y="47" uid="199" color="#FF007F">
+                <from>ahi_index</from>
+                <to>ratio_of_AI_to_Ref_AI</to>
+            </connector>
+            <connector x="1538" y="2276" uid="200" color="#FF007F">
+                <from>Conc_Bound_Plas_Prot</from>
+                <to>Bound_Rate_to_Plazma_Proteins</to>
+            </connector>
+            <connector x="1359" y="987" uid="201" color="#FF007F">
+                <from>Effect_on_its_clearance</from>
+                <to>Clearance_ratio_onemli</to>
+            </connector>
+            <connector x="1052" y="1270" uid="202" color="#FF007F">
+                <from>Operation_point_of_Baroreceptor</from>
+                <to>Discrepancy_between_operation_point_and_BP</to>
+            </connector>
+            <connector x="1549" y="549" uid="203" color="#FF007F">
+                <from>total_nox2_weight</from>
+                <to>ratio_of_nox2_in_action_site_to_total</to>
+            </connector>
+            <connector x="1839" y="1798" uid="204" color="#FF007F">
+                <from>converter_pgml_to_mgl</from>
+                <to>Epinephrine</to>
+            </connector>
+            <connector x="1525" y="815" uid="205" color="#FF007F">
+                <from>First_smoothing</from>
+                <to>Smoothing_Rate1</to>
+            </connector>
+            <connector x="1052" y="2139" uid="206" color="#FF007F">
+                <from>Reference_return_ratio_from_body_to_heart</from>
+                <to>return_ratio_from_body_to_heart</to>
+            </connector>
+            <connector x="635" y="1665" uid="207" color="#FF007F">
+                <from>Cardiac_Output</from>
+                <to>Velocity_of_blood</to>
+            </connector>
+            <connector x="1737" y="1212" uid="208" color="#FF007F">
+                <from>Expected_Loss_in_Ne</from>
+                <to>Net_change_Ne_loss</to>
+            </connector>
+            <connector x="1719" y="2872" uid="209" color="#FF007F">
+                <from>El_C_prozasin</from>
+                <to>Elimination_Rate_of_Prozasin</to>
+            </connector>
+            <connector x="1713" y="2946" uid="210" color="#FF007F">
+                <from>Volume_distriburion_of_Prozasin</from>
+                <to>inflow_rate</to>
+            </connector>
+            <connector x="1136" y="2725" uid="211" color="#FF007F">
+                <from>EC_50_NE_O_A1</from>
+                <to>Eff_of_Ne_on_Alpha1</to>
+            </connector>
+            <connector x="1029" y="86" uid="212" color="#FF007F">
+                <from>ratio_of_AI_to_Ref_AI</from>
+                <to>Ahi_distribution</to>
+            </connector>
+            <connector x="1245" y="1890" uid="213" color="#FF007F">
+                <from>NE_effect_on_beta_1</from>
+                <to>Total_Effect_on_Beta_1</to>
+            </connector>
+            <connector x="1642" y="1976" uid="214" color="#FF007F">
+                <from>EP_IN_P</from>
+                <to>Beta_1_receptor_ratio_occupied_by_epinephrine</to>
+            </connector>
+            <connector x="823" y="717" uid="215" color="#FF007F">
+                <from>Effect_of_Velocity_of_blood_saatlik_mi_kontrol_et</from>
+                <to>Implied_Oxygen_in_the_cell</to>
+            </connector>
+            <connector x="2332" y="1671" uid="216" color="#FF007F">
+                <from>Ep</from>
+                <to>Alpha_2_Receptor_Occupied_by_E</to>
+            </connector>
+            <connector x="1560" y="2129" uid="217" color="#FF007F">
+                <from>Beta_1_receptor_ratio_occupied_by_epinephrine</from>
+                <to>E_effect_on_beta_1</to>
+            </connector>
+            <connector x="1420" y="1935" uid="218" color="#FF007F">
+                <from>ki_for_beta_1_norepinephrine</from>
+                <to>NE_effect_on_beta_1</to>
+            </connector>
+            <connector x="1382" y="2277" uid="219" color="#FF007F">
+                <from>Free_Aten_Conc</from>
+                <to>Beta_1_Receptor_ratio_Occupied_by_atenolol</to>
+            </connector>
+            <connector x="1154" y="1924" uid="220" color="#FF007F">
+                <from>Total_Effect_on_Beta_1</from>
+                <to>Effect_of_Contraction__on_Stroke_Volume</to>
+            </connector>
+            <connector x="1554" y="2753" uid="221" color="#FF007F">
+                <from>ADJ_T_2</from>
+                <to>Bound_rate_to_Plasma_Proteins</to>
+            </connector>
+            <connector x="1326" y="483" uid="222" color="#FF007F">
+                <from>Nox2_weight_in_action_site</from>
+                <to>dissociation_rate</to>
+            </connector>
+            <connector x="1011" y="1543" uid="223" color="#FF007F">
+                <from>modification_time</from>
+                <to>Modification_rate</to>
+            </connector>
+            <connector x="1725" y="698" uid="224" color="#FF007F">
+                <from>Effect_of_RYR1</from>
+                <to>transformation_rate_NE</to>
+            </connector>
+            <connector x="2182" y="1501" uid="225" color="#FF007F">
+                <from>Common_factor_for_A2</from>
+                <to>Alpha_2_Receptor_Occupied_by_E</to>
+            </connector>
+            <connector x="1575" y="3118" uid="226" color="#FF007F">
+                <from>Common_factor_B2</from>
+                <to>Rec_Oc_E_on_beta_2</to>
+            </connector>
+            <connector x="2280" y="1527" uid="227" color="#FF007F">
+                <from>Ki_E_on_alpha2</from>
+                <to>Effect_of_E_on_alpha_2</to>
+            </connector>
+            <connector x="720" y="1812" uid="228" color="#FF007F">
+                <from>Average_Stroke_Volume</from>
+                <to>Adjustment_rate</to>
+            </connector>
+            <connector x="932" y="598" uid="229" color="#FF007F">
+                <from>total_cross_sectional_area</from>
+                <to>Velocity_of_blood</to>
+            </connector>
+            <connector x="1730" y="1854" uid="230" color="#FF007F">
+                <from>Epinephrine</from>
+                <to>Epinephrine_for_b2</to>
+            </connector>
+            <connector x="1278" y="381" uid="231" color="#FF007F">
+                <from>reference_dissociation_ratio</from>
+                <to>dissociation_ratio</to>
+            </connector>
+            <connector x="758" y="2277" uid="232" color="#FF007F">
+                <from>reference_Svr</from>
+                <to>Desired_SVR</to>
+            </connector>
+            <connector x="2124" y="545" uid="233" color="#FF007F">
+                <from>Delay_of_oxidation_fraction</from>
+                <to>change_in_oxidation_fr</to>
+            </connector>
+            <connector x="1246" y="1128" uid="234" color="#FF007F">
+                <from>Effect_of_Ros_on_sympathetic_impulse</from>
+                <to>Implied_SNA</to>
+            </connector>
+            <connector x="1294" y="3185" uid="235" color="#FF007F">
+                <from>reference_total_effect_on_beta_2</from>
+                <to>Effect_of_beta2_receptor_occupancy_on_arterioles_diameter</to>
+            </connector>
+            <connector x="2133" y="1821" uid="236" color="#FF007F">
+                <from>Nep</from>
+                <to>Common_factor_for_A2</to>
+            </connector>
+            <connector x="1652" y="2846" uid="237" color="#FF007F">
+                <from>Free_Prozasin_Conc</from>
+                <to>Desired_Conc</to>
+            </connector>
+            <connector x="1539" y="2624" uid="238" color="#FF007F">
+                <from>Ki_NE_on_Alpha_1</from>
+                <to>Alpha_1_Receptor_Occupied_by_NE</to>
+            </connector>
+            <connector x="1843" y="425" uid="239" color="#FF007F">
+                <from>Ryr1</from>
+                <to>oxidation_rate_1</to>
+            </connector>
+            <connector x="1654" y="2573" uid="240" color="#FF007F">
+                <from>Ne</from>
+                <to>Alpha_1_Receptor_Occupied_by_NE</to>
+            </connector>
+            <connector x="1553" y="1874" uid="241" color="#FF007F">
+                <from>NE_IN_P</from>
+                <to>Common_Factor_For_Beta_1</to>
+            </connector>
+            <connector x="1300" y="1786" uid="242" color="#FF007F">
+                <from>ref_total_effect_on_beta_1</from>
+                <to>Effect_of_Total_Effect_on_Beta_1_on_Heart_Rate</to>
+            </connector>
+            <connector x="1099" y="1753" uid="243" color="#FF007F">
+                <from>reference_heart_rate</from>
+                <to>implied_heart_rate_stocklu</to>
+            </connector>
+            <connector x="638" y="1548" uid="244" color="#FF007F">
+                <from>ml_to_l</from>
+                <to>Cardiac_Output</to>
+            </connector>
+            <connector x="1489" y="1982" uid="245" color="#FF007F">
+                <from>Common_Factor_For_Beta_1</from>
+                <to>Beta_1_Receptor_ratio_Occupied_by_atenolol</to>
+            </connector>
+            <connector x="1164" y="1427" uid="246" color="#FF007F">
+                <from>Effect_of_Bp_on_SNA</from>
+                <to>Implied_SNA</to>
+            </connector>
+            <connector x="637" y="1679" uid="247" color="#FF007F">
+                <from>Cardiac_Output</from>
+                <to>implied_Bp</to>
+            </connector>
+            <connector x="703" y="2059" uid="248" color="#FF007F">
+                <from>Adj_time</from>
+                <to>Distribution_rate</to>
+            </connector>
+            <connector x="1627" y="3185" uid="249" color="#FF007F">
+                <from>Ki_of_Epinephrine_on_B2</from>
+                <to>Eff_of_E_on_beta_2</to>
+            </connector>
+            <connector x="1514" y="2558" uid="250" color="#FF007F">
+                <from>Alpha_1_Receptor_Occupied_by_NE</from>
+                <to>Eff_of_Ne_on_Alpha1</to>
+            </connector>
+            <connector x="1856" y="573" uid="251" color="#FF007F">
+                <from>ORYR1</from>
+                <to>effect_on_oxidation_fraction</to>
+            </connector>
+            <connector x="1715" y="1849" uid="252" color="#FF007F">
+                <from>Epinephrine</from>
+                <to>EP_IN_P</to>
+            </connector>
+            <connector x="1347" y="1215" uid="253" color="#FF007F">
+                <from>Productivity_of_each_neuron</from>
+                <to>desired_epinephrine</to>
+            </connector>
+            <connector x="1261" y="2275" uid="254" color="#FF007F">
+                <from>Conc_of_NonAbs_Atenolol</from>
+                <to>Absorption_Rate</to>
+            </connector>
+            <connector x="1793" y="2896" uid="255" color="#FF007F">
+                <from>Cl_of_Prozasin</from>
+                <to>El_C_prozasin</to>
+            </connector>
+            <connector x="1506" y="2321" uid="256" color="#FF007F">
+                <from>ADJ_TIME_1</from>
+                <to>Bound_Rate_to_Plazma_Proteins</to>
+            </connector>
+            <connector x="820" y="1289" uid="257" color="#FF007F">
+                <from>Discrepancy_between_operation_point_and_BP</from>
+                <to>Net_change_in_operation_point</to>
+            </connector>
+            <connector x="1533" y="1580" uid="258" color="#FF007F">
+                <from>Epinephrine_in_Plasma</from>
+                <to>Epinephrine</to>
+            </connector>
+            <connector x="1647" y="1660" uid="259" color="#FF007F">
+                <from>Expected_Loss_in_E</from>
+                <to>Net_change_E_loss1</to>
+            </connector>
+            <connector x="1520" y="1563" uid="260" color="#FF007F">
+                <from>Epinephrine_in_Plasma</from>
+                <to>Spillover_Rate</to>
+            </connector>
+            <connector x="1173" y="2362" uid="261" color="#FF007F">
+                <from>Bioavailability</from>
+                <to>Dosage_Rate</to>
+            </connector>
+            <connector x="1097" y="714" uid="262" color="#FF007F">
+                <from>capacity_of_oxygen_in_cell</from>
+                <to>Effect_of_implied_oxygen_in_the_cell</to>
+            </connector>
+            <connector x="1607" y="2853" uid="263" color="#FF007F">
+                <from>Free_Prozasin_Conc</from>
+                <to>Elimination_Rate_of_Prozasin</to>
+            </connector>
+            <connector x="1607" y="2833" uid="264" color="#FF007F">
+                <from>Free_Prozasin_Conc</from>
+                <to>Common_factor_for_A1</to>
+            </connector>
+            <connector x="1331" y="1054" uid="265" color="#FF007F">
+                <from>reference_Ros</from>
+                <to>Effect_on_its_clearance</to>
+            </connector>
+            <connector x="1313" y="511" uid="266" color="#FF007F">
+                <from>Nox2_weight_in_action_site</from>
+                <to>Effect_of_Nox2_on_Transformation_ratio</to>
+            </connector>
+            <connector x="1732" y="1852" uid="267" color="#FF007F">
+                <from>Epinephrine</from>
+                <to>Ep</to>
+            </connector>
+            <connector x="886" y="1373" uid="268" color="#FF007F">
+                <from>Adjustment_time</from>
+                <to>Net_change_in_operation_point</to>
+            </connector>
+            <connector x="850" y="2151" uid="269" color="#FF007F">
+                <from>Body_Volume</from>
+                <to>Return_rate</to>
+            </connector>
+            <connector x="627" y="2394" uid="270" color="#FF007F">
+                <from>Desired_diameter</from>
+                <to>Net_change_in_Diameter</to>
+            </connector>
+            <connector x="1581" y="2054" uid="271" color="#FF007F">
+                <from>Ki_for_beta1_of_epinephrine</from>
+                <to>E_effect_on_beta_1</to>
+            </connector>
+            <connector x="762" y="1981" uid="272" color="#FF007F">
+                <from>Distribution_rate</from>
+                <to>Flow_1</to>
+            </connector>
+            <connector x="622" y="2323" uid="273" color="#FF007F">
+                <from>Diameter_Adustment_time</from>
+                <to>Net_change_in_Diameter</to>
+            </connector>
+            <connector x="868" y="546" uid="274" color="#FF007F">
+                <from>Unit_Cross_Sectional_Area</from>
+                <to>total_cross_sectional_area</to>
+            </connector>
+            <connector x="1849" y="1809" uid="275" color="#FF007F">
+                <from>converter_pgml_to_mgl</from>
+                <to>Norepinephrine</to>
+            </connector>
+            <connector x="921" y="2017" uid="276" color="#FF007F">
+                <from>Vr_Effect_on_return_ratio</from>
+                <to>return_ratio_from_body_to_heart</to>
+            </connector>
+            <connector x="1500" y="1991" uid="277" color="#FF007F">
+                <from>Common_Factor_For_Beta_1</from>
+                <to>Beta_1_receptor_ratio_occupied_by_epinephrine</to>
+            </connector>
+            <connector x="1167" y="339" uid="278" color="#FF007F">
+                <from>reference_02_saturation_arterial_percentage</from>
+                <to>effect_of_ratio_OSAP_to_ROSAP_on_rate_of_dissociation_ratio</to>
+            </connector>
+            <connector x="1529" y="2641" uid="279" color="#FF007F">
+                <from>Ki_NE_on_Alpha_1</from>
+                <to>Eff_of_Ne_on_Alpha1</to>
+            </connector>
+            <connector x="1511" y="459" uid="280" color="#FF007F">
+                <from>effect_of_ratio_on_arrangement_ratio</from>
+                <to>arrangement_ratio</to>
+            </connector>
+            <connector x="1631" y="1966" uid="281" color="#FF007F">
+                <from>EP_IN_P</from>
+                <to>Common_Factor_For_Beta_1</to>
+            </connector>
+            <stacked_container height="282" width="492" visible_index="0" uid="282">
+                <graph type="time_series" title="Untitled" background="#FFFFC9" show_grid="false" numbers_on_plots="true" isee:use_five_segments="false" isee:date_time="-703173653" time_precision="2" from="0" to="60">
+                    <plot index="0" pen_width="1" color="blue" precision="0" show_y_axis="true">
+                        <entity name="Heart_Rate" />
+                    </plot>
+                </graph>
+            </stacked_container>
+            <pad_icon x="287" y="1458" width="26" height="22" color="#008F44" label_side="bottom" label="HR" type="graph" icon_of="282" />
+            <stacked_container height="282" width="492" visible_index="0" uid="283">
+                <graph type="time_series" title="Untitled" background="#FFFFC9" show_grid="false" numbers_on_plots="true" isee:use_five_segments="false" isee:date_time="-703173653" time_precision="2" from="0" to="96">
+                    <plot index="0" pen_width="1" color="red" precision="0" show_y_axis="true">
+                        <entity name="Average_Stroke_Volume" />
+                    </plot>
+                </graph>
+            </stacked_container>
+            <pad_icon x="287" y="1554" width="26" height="22" color="#008F44" label_side="bottom" label="Sv" type="graph" icon_of="283" />
+            <stacked_container height="282" width="492" visible_index="0" uid="284">
+                <graph type="time_series" title="Untitled" background="#FFFFC9" show_grid="false" numbers_on_plots="true" isee:use_five_segments="false" isee:date_time="-703173653" time_precision="2" from="0" to="360">
+                    <plot index="0" pen_width="1" color="blue" precision="0" show_y_axis="true">
+                        <entity name="BPI" />
+                    </plot>
+                </graph>
+            </stacked_container>
+            <pad_icon x="351" y="1359" width="26" height="22" color="#008F44" label_side="bottom" label="BPI 24 saatlik&#x0D;" type="graph" icon_of="284" />
+            <stacked_container height="282" width="492" visible_index="0" uid="285">
+                <graph type="time_series" title="Untitled" background="#FFFFC9" show_grid="false" numbers_on_plots="true" isee:use_five_segments="false" isee:date_time="-703173653" time_precision="2" from="0" to="24">
+                    <plot index="0" pen_width="1" color="red" precision="0" show_y_axis="true">
+                        <entity name="ROS_denge_lazim_unutma" />
+                    </plot>
+                </graph>
+            </stacked_container>
+            <pad_icon x="1264" y="811" width="26" height="22" color="#008F44" label_side="bottom" label="ROS" type="graph" icon_of="285" />
+            <stacked_container height="282" width="492" visible_index="0" uid="286">
+                <graph type="time_series" title="Untitled" background="#FFFFC9" show_grid="false" numbers_on_plots="true" isee:use_five_segments="false" isee:date_time="-703173653" time_precision="2" from="0" to="360">
+                    <plot index="0" pen_width="1" color="blue" precision="0" show_y_axis="true">
+                        <entity name="Average_ROS_on_receptor_site" />
+                    </plot>
+                </graph>
+            </stacked_container>
+            <pad_icon x="1390" y="1102" width="26" height="22" color="#008F44" label_side="bottom" label="A R o R s" type="graph" icon_of="286" />
+            <stacked_container height="282" width="492" visible_index="0" uid="287">
+                <graph type="time_series" title="Untitled" background="#FFFFC9" show_grid="false" numbers_on_plots="true" isee:use_five_segments="false" isee:date_time="-703173653" time_precision="2" from="0" to="360">
+                    <plot index="0" pen_width="1" color="blue" precision="0" show_y_axis="true">
+                        <entity name="Oxidased_Ryr1" />
+                    </plot>
+                </graph>
+            </stacked_container>
+            <pad_icon x="1678" y="492" width="26" height="22" color="#008F44" label_side="bottom" label="ORYR1" type="graph" icon_of="287" />
+            <stacked_container height="282" width="492" visible_index="0" uid="288">
+                <graph type="time_series" title="Untitled" background="#FFFFC9" show_grid="false" numbers_on_plots="true" isee:use_five_segments="false" isee:date_time="-703173653" time_precision="2" from="0" to="96">
+                    <plot index="0" pen_width="1" color="blue" precision="0" show_y_axis="true">
+                        <entity name="Desired_SVR" />
+                    </plot>
+                </graph>
+            </stacked_container>
+            <pad_icon x="285" y="1603" width="26" height="22" color="#008F44" label_side="bottom" label="SVR" type="graph" icon_of="288" />
+            <stacked_container height="282" width="492" visible_index="0" uid="289">
+                <graph type="time_series" title="Untitled" background="#FFFFC9" show_grid="false" numbers_on_plots="true" isee:use_five_segments="false" isee:date_time="-703173653" time_precision="2" from="0" to="96">
+                    <plot index="0" pen_width="1" color="blue" precision="0" show_y_axis="true">
+                        <entity name="BPI" />
+                    </plot>
+                </graph>
+            </stacked_container>
+            <pad_icon x="284" y="1365" width="26" height="22" color="#008F44" label_side="bottom" label="BPI kilitli&#x0D;" type="graph" icon_of="289" />
+            <stacked_container height="282" width="492" visible_index="0" uid="290">
+                <graph type="time_series" title="Untitled" background="#FFFFC9" show_grid="false" numbers_on_plots="true" isee:use_five_segments="false" isee:date_time="-703173653" time_precision="2" from="0" to="24">
+                    <plot index="0" pen_width="1" color="blue" precision="0" show_y_axis="true">
+                        <entity name="Epinephrine_in_Plasma" />
+                    </plot>
+                </graph>
+            </stacked_container>
+            <pad_icon x="294" y="1412" width="26" height="22" color="#008F44" label_side="bottom" label="Epinephrine" type="graph" icon_of="290" />
+            <stacked_container height="282" width="492" visible_index="0" uid="291">
+                <graph type="time_series" title="Untitled" background="#FFFFC9" show_grid="false" numbers_on_plots="true" isee:use_five_segments="false" isee:date_time="-703173653" time_precision="2" from="0" to="24">
+                    <plot index="0" pen_width="1" color="blue" precision="0" show_y_axis="true">
+                        <entity name="NorAdr_In_plasma" />
+                    </plot>
+                </graph>
+            </stacked_container>
+            <pad_icon x="283" y="1506" width="26" height="22" color="#008F44" label_side="bottom" label="Nore" type="graph" icon_of="291" />
+            <stacked_container height="282" width="492" visible_index="0" uid="292">
+                <graph type="time_series" title="Untitled" background="#FFFFC9" show_grid="false" numbers_on_plots="true" isee:use_five_segments="false" isee:date_time="-703173653" time_precision="2" from="48" to="96" />
+            </stacked_container>
+            <pad_icon x="1021" y="2501" width="26" height="22" color="#008F44" label_side="bottom" label="Graph 2" type="graph" icon_of="292" />
+        </display>
+        <interface page_width="788" page_height="528">
+            <simulation_delay>0</simulation_delay>
+            <pages />
+        </interface>
+        <popup x="618" y="169" content="282" />
+        <popup x="851" y="466" content="283" />
+        <popup x="96" y="172" content="284" />
+        <popup x="435" y="418" content="285" />
+        <popup x="348" y="436" content="286" />
+        <popup x="792" y="442" content="287" />
+        <popup x="96" y="352" content="288" />
+        <popup x="588" y="172" content="289" />
+        <popup x="849" y="214" content="290" />
+        <popup x="189" y="436" content="291" />
+        <popup x="375" y="484" content="292" />
+    </model>
+</xmile>
